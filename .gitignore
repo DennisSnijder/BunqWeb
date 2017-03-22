@@ -1,0 +1,14 @@
+/node_modules/
+/vendor/
+/bower_components/
+.tmp
+*.log
+dist
+var/*
+!var/logs
+!var/cache
+!var/php
+.sass-cache/
+/.idea/
+/.phpintel/
+.DS_Store

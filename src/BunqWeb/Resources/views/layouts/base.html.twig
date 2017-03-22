@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    {% block title %}
+        <title>Bunq Web</title>
+    {% endblock title %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/app.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Chrome, Firefox OS, Opera and Vivaldi -->
+    <meta name="theme-color" content="#555555">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#555555">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#555555">
+</head>
+<body>
+
+<header>
+</header>
+<main>
+    <div class="container">
+        {% block content %}{% endblock content %}
+    </div>
+</main>
+<footer>
+</footer>
+</body>
+</html>
