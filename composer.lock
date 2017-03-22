@@ -4,8 +4,18 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "686f9565861e9e49c6df4d261494b288",
+    "content-hash": "99262da9bacc09b616c5733643d301bb",
     "packages": [
+        {
+            "name": "bunq-api-client",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DennisSnijder/bunq-api-client.git",
+                "reference": "master"
+            },
+            "type": "library"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.4.0",

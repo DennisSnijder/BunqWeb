@@ -28,6 +28,11 @@ $app['BunqWebManager'] = $app->share(function () use ($app) {
     return new BunqWebManager($app['BunqWebRepository'], $app);
 });
 
+$app['BunqClient'] = $app->share(function () use ($app) {
+   return new \Snijder\Bunq\BunqClient();
+});
+
+
 $app['BunqWebRepository'] = $app->share(function () use ($app) {
     return new BunqWebRepository($app['db']);
 });
