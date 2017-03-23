@@ -1,4 +1,20 @@
 {
+  "name": "bunq-web",
+  "description": "A web dashboard using the Bunq API.",
+  "authors": [
+    {
+      "name": "Dennis Snijder",
+      "email": "Dennis@Snijder.io",
+      "homepage": "https://github.com/dennissnijder",
+      "role": "Developer"
+    },
+    {
+      "name": "Robert-Jan Keizer",
+      "email": "robertjankeizer@gmail.com",
+      "homepage": "https://github.com/keizerdev",
+      "role": "Developer"
+    }
+  ],
   "require": {
     "silex/silex": "^2.0",
     "twig/twig": "~1.0",
