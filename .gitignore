@@ -1,5 +1,7 @@
 /node_modules/
 /vendor/
+/app/config/*.yml
+/app/config/context/*.conf
 /bower_components/
 .tmp
 *.log

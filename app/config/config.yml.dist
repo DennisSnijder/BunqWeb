@@ -1,0 +1,5 @@
+bunq:
+  sandbox: true
+  api-key: 'your-api-key-here'
+  ips:
+    - 'your-permitted-ip'
