@@ -3,3 +3,6 @@ bunq:
   api-key: 'your-api-key-here'
   ips:
     - 'your-permitted-ip'
+
+app:
+  hide_balances: false

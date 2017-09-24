@@ -12,7 +12,9 @@
             <img width="50" src="/api/attachment/{{ account.avatar.image[0].attachmentPublicUuid }}" />
             <div class="summary">
                 <h2>{{ account.getDescription }}</h2>
-                <h3>€ {{ account.getBalance().getValue() }}</h3>
+                {% if app.config.app.hide_balances == false %}
+                    <h3>€ {{ account.getBalance().getValue() }}</h3>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
