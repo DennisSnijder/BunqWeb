@@ -1,13 +1,12 @@
 <?php
 namespace BunqWeb\Provider\Controller;
 
-
-use BunqWeb\Controller\DashboardController;
+use BunqWeb\Controller\LoginController;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 use Silex\ControllerCollection;
 
-class DashboardControllerProvider implements ControllerProviderInterface
+class LoginControllerProvider implements ControllerProviderInterface
 {
 
     /**
@@ -18,13 +17,14 @@ class DashboardControllerProvider implements ControllerProviderInterface
         /** @var ControllerCollection $collection */
         $collection = $app['controllers_factory'];
 
-        $dashboardController = new DashboardController(
+        $loginController = new LoginController(
             $app['twig'],
-            $app['monetary.account.repository'],
+            $app['user.repository'],
             $app['session']
         );
 
-        $collection->get('/', [$dashboardController, 'renderDashboardPage']);
+        $collection->get('/', [$loginController, 'renderLoginPage']);
+        $collection->post('/', [$loginController, 'handleLoginRequest']);
 
         return $collection;
     }

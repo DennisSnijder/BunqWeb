@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
         watch: {
             scripts: {
-                files: ["src/BunqWeb/Resources/Sass/**/*.scss", "src/BunqWeb/Resources/React/**/*.jsx", "src/BunqWeb/Resources/React/**/*.js"],
+                files: ["resources/Sass/**/*.scss", "resources/React/**/*.jsx", "resources/React/**/*.js"],
                 tasks: ["sass"]
             }
         },
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 files: {
-                    "web/styles/app.css": "src/BunqWeb/Resources/Sass/all.scss"
+                    "web/styles/app.css": "resources/Sass/all.scss"
                 }
             }
         }

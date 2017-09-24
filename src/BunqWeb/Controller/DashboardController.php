@@ -1,7 +1,9 @@
 <?php
 namespace BunqWeb\Controller;
 
-use BunqWeb\Repository\UserRepository;
+use BunqWeb\Model\User;
+use BunqWeb\Repository\MonetaryAccountRepository;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class DashboardController
 {
@@ -10,20 +12,35 @@ class DashboardController
      */
     private $twig;
     /**
-     * @var UserRepository
+     * @var MonetaryAccountRepository
      */
-    private $userRepository;
+    private $monetaryAccountRepository;
+    /**
+     * @var Session
+     */
+    private $session;
 
-    public function __construct(\Twig_Environment $twig, UserRepository $userRepository)
-    {
+    public function __construct(
+        \Twig_Environment $twig,
+        MonetaryAccountRepository $monetaryAccountRepository,
+        Session $session
+    ) {
         $this->twig = $twig;
-        $this->userRepository = $userRepository;
+        $this->monetaryAccountRepository = $monetaryAccountRepository;
+        $this->session = $session;
     }
 
     public function renderDashboardPage()
     {
+        /** @var User $user */
+        $user = $this->session->get('user');
+
+        $monetaryAccounts = $this->monetaryAccountRepository->getMonetaryAccountsForUser(
+            $user->getId()
+        );
+
         return $this->twig->render('dashboard/index.html.twig', [
-            'users' => $this->userRepository->getUsers()
+            'monetaryAccounts' => $monetaryAccounts
         ]);
     }
 }

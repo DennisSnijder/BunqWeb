@@ -1,0 +1,81 @@
+html {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding-top: 50px;
+  background-size: 100%;
+  background: url(//static.useresponse.com/public/bunq/my-interface/bunq-colours-bar-2.png) no-repeat #fafafa;
+  height: 100%;
+  width: 100%;
+  font-family: Segoe UI, "Helvetica Neue", Lucida Grande, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+}
+
+main {
+  width: 100%;
+  background-color: #fafafa;
+}
+
+.container {
+  padding-top:20px;
+  position: relative;
+  height: 100%;
+  z-index: 0;
+  min-width: 1000px;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.bank-account-container {
+  margin:10px;
+
+  .bank-account {
+    @include box-shadow();
+    background-color: white;
+
+    padding: 10px;
+    width: 40%;
+
+    img {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .summary {
+      display: inline-block;
+    }
+
+    h2 {
+      margin: 2px;
+    }
+
+    h3 {
+      margin: 2px;
+    }
+  }
+}
+
+
+.login-container {
+  @include box-shadow();
+  background-color: white;
+  margin: 10px;
+  width: 20%;
+  padding:10px;
+
+  img {
+    display:block;
+    margin:auto;
+    border-radius: 100%;
+    padding:10px;
+  }
+
+  input[type="submit"] {
+    margin-top:10px;
+  }
+}

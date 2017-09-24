@@ -1,20 +1,20 @@
 {% extends "layouts/base.html.twig" %}
 
 {% block content %}
-    <h2>Overview page</h2>
+    <h1>Dashboard</h1>
+    <hr />
 
-    Here is a list of your accounts!
-
-    <ul>
-    {% for account in users %}
-        {% if account.getUserCompany %}
-            <li>Company: {{ account.getUserCompany.getDisplayname }}</li>
-        {% endif %}
-
-        {% if account.getUserPerson %}
-            <li>Company: {{ account.getUserPerson.getDisplayname }}</li>
-        {% endif %}
+    <div class="bank-account-container">
+    {% for account in monetaryAccounts %}
+        <div class="bank-account">
+            <img width="40" src="/attachment/{{ account.avatar.image[0].attachmentPublicUuid }}" />
+            <div class="summary">
+                <h2>{{ account.getDescription }}</h2>
+                <h3>€ {{ account.getBalance().getValue() }}</h3>
+            </div>
+        </div>
     {% endfor %}
-    </ul>
+    </div>
+
 {% endblock content %}
 

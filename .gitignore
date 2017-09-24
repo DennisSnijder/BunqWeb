@@ -1,7 +1,5 @@
 /node_modules/
 /vendor/
-/app/config/*.yml
-/app/config/context/*.conf
 /bower_components/
 .tmp
 *.log
@@ -14,3 +12,9 @@ var/*
 /.idea/
 /.phpintel/
 .DS_Store
+
+
+/app/config/*.yml
+/app/config/context/*.conf
+/web/styles/*.css
+/web/styles/*.css.map

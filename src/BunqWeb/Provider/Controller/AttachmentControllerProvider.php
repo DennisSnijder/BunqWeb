@@ -2,12 +2,12 @@
 namespace BunqWeb\Provider\Controller;
 
 
-use BunqWeb\Controller\DashboardController;
+use BunqWeb\Controller\AttachmentController;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 use Silex\ControllerCollection;
 
-class DashboardControllerProvider implements ControllerProviderInterface
+class AttachmentControllerProvider implements ControllerProviderInterface
 {
 
     /**
@@ -18,13 +18,11 @@ class DashboardControllerProvider implements ControllerProviderInterface
         /** @var ControllerCollection $collection */
         $collection = $app['controllers_factory'];
 
-        $dashboardController = new DashboardController(
-            $app['twig'],
-            $app['monetary.account.repository'],
-            $app['session']
+        $attachmentController = new AttachmentController(
+            $app['bunq.api.context']
         );
 
-        $collection->get('/', [$dashboardController, 'renderDashboardPage']);
+        $collection->get('/{uuid}', [$attachmentController, 'getAttachment']);
 
         return $collection;
     }
