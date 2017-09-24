@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 
 
 
-    grunt.registerTask("default", ["sass", "watch"]);
-    grunt.registerTask("dev", ["sass"]);
+    grunt.registerTask("default", ["sass"]);
+    grunt.registerTask("dev", ["sass", "watch"]);
     grunt.registerTask("deploy", ["sass"]);
 };
