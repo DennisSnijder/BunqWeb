@@ -40,7 +40,8 @@ class DashboardController
         );
 
         return $this->twig->render('dashboard/index.html.twig', [
-            'monetaryAccounts' => $monetaryAccounts
+            'monetaryAccounts' => $monetaryAccounts,
+            'user' => $user
         ]);
     }
 }

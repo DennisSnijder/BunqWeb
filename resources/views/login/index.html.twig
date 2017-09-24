@@ -8,7 +8,7 @@
 
     {% for user in users %}
         <form method="post" class="login-container">
-            <img width="100" src="/attachment/{{ user.getPublicAttachmentUUID }}" />
+            <img width="100" src="/api/attachment/{{ user.getPublicAttachmentUUID }}" />
 
             <input type="hidden" name="id" value="{{ user.getId() }}">
             <input type="hidden" name="type" value="{{ user.getType() }}">

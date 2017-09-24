@@ -32,18 +32,22 @@ main {
 }
 
 .bank-account-container {
-  margin:10px;
+  margin: 10px;
+  width: 30%;
+  display: inline-block;
 
   .bank-account {
     @include box-shadow();
     background-color: white;
-
     padding: 10px;
-    width: 40%;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
 
     img {
       display: inline-block;
       margin-right: 10px;
+      border-radius: 10%;
     }
 
     .summary {
@@ -60,6 +64,19 @@ main {
   }
 }
 
+.payment-container {
+  padding-left: 30px;
+  width: 60%;
+  display: inline-block;
+  vertical-align: top;
+
+  .single-payment {
+    padding: 10px;
+    @include box-shadow();
+    background-color: white;
+    margin: 10px;
+  }
+}
 
 .login-container {
   @include box-shadow();

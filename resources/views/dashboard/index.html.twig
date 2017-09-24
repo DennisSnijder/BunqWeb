@@ -1,13 +1,15 @@
 {% extends "layouts/base.html.twig" %}
 
 {% block content %}
-    <h1>Dashboard</h1>
+    <h1>Welcome {{ user.getDisplayName() }}</h1>
     <hr />
 
+    <input id="payment-prototype" type="hidden" value="{{ block('payment_prototype') | e('html_attr') }}">
+
     <div class="bank-account-container">
-    {% for account in monetaryAccounts %}
-        <div class="bank-account">
-            <img width="40" src="/attachment/{{ account.avatar.image[0].attachmentPublicUuid }}" />
+    {% for account in monetaryAccounts if account.status != 'CANCELLED' %}
+        <div class="bank-account" data-id="{{ account.getId() }}">
+            <img width="50" src="/api/attachment/{{ account.avatar.image[0].attachmentPublicUuid }}" />
             <div class="summary">
                 <h2>{{ account.getDescription }}</h2>
                 <h3>€ {{ account.getBalance().getValue() }}</h3>
@@ -16,5 +18,15 @@
     {% endfor %}
     </div>
 
+    <div class="payment-container">
+
+    </div>
 {% endblock content %}
+
+{% block payment_prototype %}
+    <div class="single-payment">
+        <span class="counter-party">__COUNTER_PARTY__</span>
+        <span class="amount">__AMOUNT__</span>
+    </div>
+{% endblock payment_prototype %}
 

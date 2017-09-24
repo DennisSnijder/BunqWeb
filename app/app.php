@@ -1,6 +1,6 @@
 <?php
 
-use BunqWeb\Provider\Controller\AttachmentControllerProvider;
+use BunqWeb\Provider\Controller\APIControllerProvider;
 use BunqWeb\Provider\Controller\DashboardControllerProvider;
 use BunqWeb\Provider\Controller\LoginControllerProvider;
 use BunqWeb\Provider\Service\BunqServiceProvider;
@@ -28,6 +28,6 @@ $app->register(new UserServiceProvider);
 $app->mount('/login', new LoginControllerProvider);
 $app->mount('/', new DashboardControllerProvider);
 
-$app->mount('/attachment', new AttachmentControllerProvider);
+$app->mount('/api', new APIControllerProvider);
 
 return $app;
