@@ -1,7 +1,7 @@
 # Bunq Web #
 An open source, self hosted dashboard for Bunq.
 
-![Screenshot](https://i.gyazo.com/17a82f6700a2207b773fa566d2bef651.png)
+![Screenshot](https://i.gyazo.com/223f9cfaf710966ebf4c985fe4a9e65d.png)
 
 ## Setup
 

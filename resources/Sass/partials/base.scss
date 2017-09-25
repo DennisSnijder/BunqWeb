@@ -77,8 +77,30 @@ main {
     background-color: white;
     margin: 10px;
 
+    .counter-party {
+      vertical-align: top;
+      margin-top: 5px;
+      display: inline-block;
+
+      span {
+        font-size: 15px;
+      }
+
+      small {
+        padding-top:5px;
+        display: block;
+      }
+    }
+
     .amount {
       float: right;
+      font-size: 17px;
+      padding-top: 15px;
+    }
+
+    img {
+      border-radius: 100%;
+      margin-right: 10px;
     }
   }
 }

@@ -27,7 +27,11 @@
 
 {% block payment_prototype %}
     <div class="single-payment">
-        <span class="counter-party">__COUNTER_PARTY__</span>
+        <img width="50" src="__PAYMENT_ICON_URI__" />
+        <div class="counter-party">
+            <span>__COUNTER_PARTY__</span>
+            <small class="date">__PAYMENT_DATE__</small>
+        </div>
         <span class="amount">__AMOUNT__</span>
     </div>
 {% endblock payment_prototype %}
