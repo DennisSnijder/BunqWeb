@@ -1,5 +1,4 @@
-jQuery(document).ready(function($) {
-
+$(function() {
     function bindEventListeners() {
         $('.bank-account').click(handleBankAccountClick);
     }
@@ -11,29 +10,21 @@ jQuery(document).ready(function($) {
 
     function fetchPaymentsForAccount(id) {
         $.get('/api/payments/' + id)
-            .done(function(response) {
-
-                bindPayments(response);
-            });
+            .done(bindPayments)
     }
 
 
     function bindPayments(paymentArray) {
-        console.log(paymentArray);
-
-        let paymentContainer = $('.payment-container');
+        var paymentContainer = $('.payment-container');
         paymentContainer.html('');
 
-        for(let i in paymentArray) {
-            let payment = paymentArray[i];
-            let prototype = $('#payment-prototype').val();
-            let avatar = payment.counterparty_alias.avatar;
-            let icon_uri = '';
-            let paymentDate = new Date(payment.created);
+        paymentArray.forEach(function(payment) {
+            var prototype = $('#payment-prototype').val();
+            var avatar = payment.counterparty_alias.avatar;
+            var icon_uri = 'https://static.useresponse.com/public/bunq/avatars/default-avatar.svg';
+            var paymentDate = new Date(payment.created);
 
-            if(avatar === null) {
-                icon_uri = 'https://static.useresponse.com/public/bunq/avatars/default-avatar.svg';
-            } else {
+            if(avatar) {
                 icon_uri = '/api/attachment/' + avatar.image[0].attachment_public_uuid;
             }
 
@@ -43,8 +34,7 @@ jQuery(document).ready(function($) {
             prototype = prototype.replace(/__AMOUNT__/g, payment.amount.value);
 
             paymentContainer.append(prototype);
-        }
-
+        });
     }
 
     bindEventListeners();
