@@ -25,6 +25,7 @@ class DashboardControllerProvider implements ControllerProviderInterface
         );
 
         $collection->get('/', [$dashboardController, 'renderDashboardPage']);
+        $collection->get('/react', [$dashboardController, 'renderDashboardReactPage']);
 
         return $collection;
     }

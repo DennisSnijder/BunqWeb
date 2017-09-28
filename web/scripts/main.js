@@ -37,6 +37,6 @@ $(function() {
         });
     }
 
-    bindEventListeners();
-    fetchPaymentsForAccount($('.bank-account:first').data('id'));
+    // bindEventListeners();
+    // fetchPaymentsForAccount($('.bank-account:first').data('id'));
 });

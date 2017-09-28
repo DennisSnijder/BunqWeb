@@ -44,4 +44,19 @@ class DashboardController
             'user' => $user
         ]);
     }
+
+    public function renderDashboardReactPage()
+    {
+        /** @var User $user */
+        $user = $this->session->get('user');
+
+        $monetaryAccounts = $this->monetaryAccountRepository->getMonetaryAccountsForUser(
+            $user->getId()
+        );
+
+        return $this->twig->render('dashboard/index_react.html.twig', [
+            'monetaryAccounts' => $monetaryAccounts,
+            'user' => $user
+        ]);
+    }
 }
