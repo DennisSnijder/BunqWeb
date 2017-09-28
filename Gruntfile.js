@@ -6,8 +6,7 @@ module.exports = function(grunt) {
 
 		php: {
 			dist: {
-				options: {
-					hostname: 'YOUR_IP_HERE',	
+				options: {						
 					port: 9000,
 					base: 'web',
 					keepalive: true,
