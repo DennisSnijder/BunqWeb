@@ -14,7 +14,7 @@ $ npm install
 #### Step 2: Compile assets
 ```bash
 $ npm install -g grunt
-$ grunt
+$ grunt serve
 ```
 
 #### Step 3: Config file
