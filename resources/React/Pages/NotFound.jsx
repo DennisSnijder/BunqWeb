@@ -11,7 +11,7 @@ class NotFound extends React.Component {
         return (
             <div style={{ textAlign: "center", marginTop: 40 }}>
                 <Helmet>
-                    <title>{`UploadBroBot - 404 Not Found`}</title>
+                    <title>{`BunqWeb - 404 Not Found`}</title>
                 </Helmet>
                 <h1>Page Not Found</h1>
             </div>

@@ -4,24 +4,20 @@ import { withRouter } from "react-router";
 import Dialog from "material-ui/Dialog";
 import Snackbar from "material-ui/Snackbar";
 import Button from "material-ui/Button";
-
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import createMuiTheme from "material-ui/styles/createMuiTheme";
-import DefaultThemeTheme from "../Themes/DefaultTheme";
-const DefaultTheme = createMuiTheme(DefaultThemeTheme);
+
+import DefaultThemeConfig from "../Themes/DefaultTheme";
+const DefaultTheme = createMuiTheme(DefaultThemeConfig);
 
 // redux actions
-import {
-    userLoadLocalstorage,
-    userUpdate
-} from "../Actions/user.js";
+import { userLoadLocalstorage, userUpdate } from "../Actions/user.js";
 import {
     paymentsLoadLocalstorage,
     paymentsUpdate
 } from "../Actions/payments.js";
 import { closeModal, openModal } from "../Actions/modal.js";
 import { closeSnackbar, openSnackbar } from "../Actions/snackbar.js";
-
 
 class Main extends React.Component {
     constructor(props, context) {
@@ -30,44 +26,16 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        // initial localstorage check
-        this.props.dispatch(paymentsLoadLocalstorage());
-        this.props.dispatch(userLoadLocalstorage());
+        this.props.paymentsLoadLocalstorage();
+        this.props.userLoadLocalstorage();
 
         // this.updateUser();
-        this.updatePayments();
+        this.props.updatePayments();
     }
 
-    // =========== Static data =============
-
-    // open the general modal
-    openModalHelper = (message, title) => {
-        this.props.dispatch(openModal(message, title));
-    };
-    closeModalHelper = () => {
-        this.props.dispatch(closeModal());
-    };
-
-    // open/close the general snackbar
-    openSnackbarHelper = (message, duration = 4000) => {
-        this.props.dispatch(openSnackbar(message, duration));
-    };
-    closeSnackbarHelper = () => {
-        this.props.dispatch(closeSnackbar());
-    };
-
-    updateUser = () => {
-        this.props.dispatch(userUpdate());
-    };
-    updatePayments = () => {
-        this.props.dispatch(paymentsUpdate());
-    };
-
     render() {
-
-        // generate a list of props we want to give to the children
         const childProps = {
-            // uniqueness
+            // uniqueness to help with triggering route change animations
             key: this.props.location.pathname,
 
             user_info: this.props.user_info,
@@ -96,12 +64,12 @@ class Main extends React.Component {
                                 label="Ok"
                                 primary={true}
                                 keyboardFocused={true}
-                                onTouchTap={this.closeModalHelper}
+                                onTouchTap={this.props.closeModal}
                             />
                         ]}
                         modal={false}
                         open={this.props.modalOpen}
-                        onRequestClose={this.closeModalHelper}
+                        onRequestClose={this.props.closeModal}
                     >
                         {this.props.modalText}
                     </Dialog>
@@ -109,7 +77,7 @@ class Main extends React.Component {
                         open={this.props.snackbarOpen}
                         message={this.props.snackbarMessage}
                         autoHideDuration={this.props.snackbarDuration}
-                        onRequestClose={this.closeSnackbarHelper}
+                        onRequestClose={this.props.closeSnackbar}
                     />
 
                     <RouteComponent
@@ -122,20 +90,39 @@ class Main extends React.Component {
     }
 }
 export default withRouter(
-    connect(store => {
-        return {
-            user_info: store.user.user_info,
+    connect(
+        store => {
+            return {
+                user_info: store.user.user_info,
 
-            payments: store.payments.payments,
-            paymentsLoading: store.payments.loading,
+                payments: store.payments.payments,
+                paymentsLoading: store.payments.loading,
 
-            modalText: store.modal.message,
-            modalTitle: store.modal.title,
-            modalOpen: store.modal.modalOpen,
+                modalText: store.modal.message,
+                modalTitle: store.modal.title,
+                modalOpen: store.modal.modalOpen,
 
-            snackbarMessage: store.snackbar.message,
-            snackbarDuration: store.snackbar.duration,
-            snackbarOpen: store.snackbar.snackbarOpen
-        };
-    })(Main)
+                snackbarMessage: store.snackbar.message,
+                snackbarDuration: store.snackbar.duration,
+                snackbarOpen: store.snackbar.snackbarOpen
+            };
+        },
+        (dispatch, props) => {
+            return {
+                closeSnackbar: () => dispatch(closeSnackbar()),
+                openSnackbar: (message, duration = 4000) =>
+                    dispatch(openSnackbar(message, duration)),
+
+                closeModal: () => dispatch(closeModal()),
+                openModal: (message, title) =>
+                    dispatch(openModal(message, title)),
+
+                updatePayments: () => dispatch(paymentsUpdate()),
+                paymentsLoadLocalstorage: () => dispatch(paymentsLoadLocalstorage()),
+
+                updateUser: () => dispatch(userUpdate()),
+                userLoadLocalstorage: () => dispatch(userLoadLocalstorage()),
+            };
+        }
+    )(Main)
 );

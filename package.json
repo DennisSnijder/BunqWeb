@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --colors",
-    "build:dev": "cross-env NODE_ENV=development webpack --debug --watch --progress --colors",
-    "prettify": "prettier --write \"{src,client,webpack}/**/*.{js,jsx}\" --tab-width 4"
+    "build:dev": "cross-env NODE_ENV=development webpack --debug --watch --progress --colors"
   },
   "dependencies": {
     "alertifyjs": "^1.7.1",
