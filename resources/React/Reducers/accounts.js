@@ -1,24 +1,24 @@
 export const defaultState = {
-    payments: [],
+    accounts: [],
     loading: false
 };
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case "PAYMENTS_SET_INFO":
+        case "ACCOUNTS_SET_INFO":
             // update local storage
             return {
                 ...state,
-                payments: action.payload.payments
+                accounts: action.payload.accounts
             };
 
-        case "PAYMENTS_IS_LOADING":
+        case "ACCOUNTS_IS_LOADING":
             return {
                 ...state,
                 loading: true
             };
 
-        case "PAYMENTS_IS_NOT_LOADING":
+        case "ACCOUNTS_IS_NOT_LOADING":
             return {
                 ...state,
                 loading: false

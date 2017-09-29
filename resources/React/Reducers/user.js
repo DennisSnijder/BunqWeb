@@ -5,6 +5,7 @@ const user_info = store.get("user_info");
 
 export const defaultState = {
     user_info: user_info || false,
+    accounts: [],
     loading: false,
     initialCheck: false
 };

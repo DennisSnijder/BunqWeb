@@ -12,10 +12,8 @@ const DefaultTheme = createMuiTheme(DefaultThemeConfig);
 
 // redux actions
 import { userLoadLocalstorage, userUpdate } from "../Actions/user.js";
-import {
-    paymentsLoadLocalstorage,
-    paymentsUpdate
-} from "../Actions/payments.js";
+import { paymentsUpdate } from "../Actions/payments.js";
+import { accountsUpdate } from "../Actions/accounts.js";
 import { closeModal, openModal } from "../Actions/modal.js";
 import { closeSnackbar, openSnackbar } from "../Actions/snackbar.js";
 
@@ -26,11 +24,9 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        this.props.paymentsLoadLocalstorage();
         this.props.userLoadLocalstorage();
 
-        // this.updateUser();
-        this.props.updatePayments();
+        this.props.updateAccounts();
     }
 
     render() {
@@ -39,15 +35,20 @@ class Main extends React.Component {
             key: this.props.location.pathname,
 
             user_info: this.props.user_info,
-            updateUser: this.updateUser,
+            updateUser: this.props.updateUser,
 
             paymentsLoading: this.props.paymentsLoading,
             payments: this.props.payments,
+            updatePayments: this.props.updatePayments,
 
-            openModalHelper: this.openModalHelper,
-            closeModalHelper: this.closeModalHelper,
-            openSnackbarHelper: this.openSnackbarHelper,
-            closeSnackbarHelper: this.closeSnackbarHelper
+            accountsLoading: this.props.accountsLoading,
+            accounts: this.props.accounts,
+            updateaccounts: this.props.updateaccounts,
+
+            openModal: this.props.openModal,
+            closeModal: this.props.closeModal,
+            openSnackbar: this.props.openSnackbar,
+            closeSnackbar: this.props.closeSnackbar
         };
 
         // get the component from the props
@@ -73,6 +74,7 @@ class Main extends React.Component {
                     >
                         {this.props.modalText}
                     </Dialog>
+
                     <Snackbar
                         open={this.props.snackbarOpen}
                         message={this.props.snackbarMessage}
@@ -98,6 +100,9 @@ export default withRouter(
                 payments: store.payments.payments,
                 paymentsLoading: store.payments.loading,
 
+                accounts: store.accounts.accounts,
+                accountsLoading: store.accounts.loading,
+
                 modalText: store.modal.message,
                 modalTitle: store.modal.title,
                 modalOpen: store.modal.modalOpen,
@@ -117,11 +122,12 @@ export default withRouter(
                 openModal: (message, title) =>
                     dispatch(openModal(message, title)),
 
-                updatePayments: () => dispatch(paymentsUpdate()),
-                paymentsLoadLocalstorage: () => dispatch(paymentsLoadLocalstorage()),
+                updatePayments: (accountId) => dispatch(paymentsUpdate(accountId)),
+
+                updateAccounts: () => dispatch(accountsUpdate()),
 
                 updateUser: () => dispatch(userUpdate()),
-                userLoadLocalstorage: () => dispatch(userLoadLocalstorage()),
+                userLoadLocalstorage: () => dispatch(userLoadLocalstorage())
             };
         }
     )(Main)

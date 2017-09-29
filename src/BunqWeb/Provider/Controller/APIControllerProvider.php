@@ -1,4 +1,5 @@
 <?php
+
 namespace BunqWeb\Provider\Controller;
 
 
@@ -9,7 +10,6 @@ use Silex\ControllerCollection;
 
 class APIControllerProvider implements ControllerProviderInterface
 {
-
     /**
      * {@inheritdoc}
      */
@@ -20,11 +20,13 @@ class APIControllerProvider implements ControllerProviderInterface
 
         $APIController = new APIController(
             $app['bunq.api.context'],
-            $app['session']
+            $app['session'],
+            $app['monetary.account.repository']
         );
 
         $collection->get('/attachment/{uuid}', [$APIController, 'getAttachmentForUUID']);
         $collection->get('/payments/{monetaryAccountId}', [$APIController, 'getPaymentsForMonetaryAccount']);
+        $collection->get('/accounts', [$APIController, 'getMonetaryAccountForCurrentUser']);
 
         return $collection;
     }

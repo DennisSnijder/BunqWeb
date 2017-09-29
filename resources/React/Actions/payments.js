@@ -1,6 +1,5 @@
 const axios = require("axios");
 const Logger = require("../Helpers/Logger");
-const store = require("store");
 
 export function paymentsSetInfo(payments) {
     // return the action
@@ -12,7 +11,7 @@ export function paymentsSetInfo(payments) {
     };
 }
 
-export function paymentsUpdate(payment_id = 3580) {
+export function paymentsUpdate(payment_id) {
     return dispatch => {
         dispatch(paymentsLoading());
         axios
@@ -28,11 +27,6 @@ export function paymentsUpdate(payment_id = 3580) {
                 Logger.trace(err);
             });
     };
-}
-
-export function paymentsLoadLocalstorage() {
-    paymentsSetInfo(store.get("payments") || false);
-    return { type: "PAYMENTS_LOAD_LOCALSTORAGE" };
 }
 
 export function paymentsLoading() {
