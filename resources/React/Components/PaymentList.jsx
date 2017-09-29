@@ -5,7 +5,7 @@ import {
     ListItemSecondaryAction
 } from "material-ui/List";
 import Avatar from "material-ui/Avatar";
-import { LinearProgress } from 'material-ui/Progress';
+import { LinearProgress } from "material-ui/Progress";
 
 export default class PaymentList extends React.Component {
     constructor(props, context) {
@@ -33,6 +33,7 @@ export default class PaymentList extends React.Component {
             const displayName = payment.counterparty_alias.display_name;
             const paymentDate = new Date(payment.created).toLocaleString();
             const paymentAmount = payment.amount.value;
+            const paymentColor = paymentAmount < 0 ? "red" : "green";
 
             return (
                 <ListItem>
@@ -44,7 +45,7 @@ export default class PaymentList extends React.Component {
                         secondary={paymentDate}
                     />
                     <ListItemSecondaryAction>
-                        <p style={{ marginRight: 20 }}>€ {paymentAmount}</p>
+                        <p style={{ marginRight: 20, color: paymentColor }}>€ {paymentAmount}</p>
                     </ListItemSecondaryAction>
                 </ListItem>
             );

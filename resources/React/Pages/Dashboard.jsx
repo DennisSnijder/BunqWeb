@@ -27,6 +27,7 @@ export default class Dashboard extends React.Component {
                                 accounts={this.props.accounts}
                                 accountsLoading={this.props.accountsLoading}
                                 updatePayments={this.props.updatePayments}
+                                paymentsLoading={this.props.paymentsLoading}
                             />
                         </List>
                     </Paper>

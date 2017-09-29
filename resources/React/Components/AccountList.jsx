@@ -1,11 +1,7 @@
 import React from "react";
-import {
-    ListItem,
-    ListItemText,
-    ListItemSecondaryAction
-} from "material-ui/List";
 import Avatar from "material-ui/Avatar";
 import { LinearProgress } from "material-ui/Progress";
+import { ListItem, ListItemText } from "material-ui/List";
 
 export default class AccountList extends React.Component {
     constructor(props, context) {
@@ -15,12 +11,13 @@ export default class AccountList extends React.Component {
 
     fetchPaymentsHandler(accountId) {
         return () => {
-            this.props.updatePayments(accountId);
+            if (!this.props.paymentsLoading) {
+                this.props.updatePayments(accountId);
+            }
         };
     }
 
     render() {
-
         if (this.props.accountsLoading) {
             return <LinearProgress />;
         }
@@ -30,7 +27,6 @@ export default class AccountList extends React.Component {
         }
 
         return this.props.accounts.map(account => {
-            console.log(account.id);
             return (
                 <ListItem
                     button
@@ -45,11 +41,8 @@ export default class AccountList extends React.Component {
                     </Avatar>
                     <ListItemText
                         primary={account.description}
-                        secondary={account.balance.value}
+                        secondary={`€ ${account.balance.value}`}
                     />
-                    <div>
-                        <h2>{}</h2>
-                    </div>
                 </ListItem>
             );
         });
