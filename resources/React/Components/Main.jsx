@@ -38,6 +38,7 @@ class Main extends React.Component {
             updateUser: this.props.updateUser,
 
             paymentsLoading: this.props.paymentsLoading,
+            paymentsAccountId: this.props.paymentsAccountId,
             payments: this.props.payments,
             updatePayments: this.props.updatePayments,
 
@@ -99,6 +100,7 @@ export default withRouter(
 
                 payments: store.payments.payments,
                 paymentsLoading: store.payments.loading,
+                paymentsAccountId: store.payments.account_id,
 
                 accounts: store.accounts.accounts,
                 accountsLoading: store.accounts.loading,

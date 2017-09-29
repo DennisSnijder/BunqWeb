@@ -21,28 +21,22 @@ export default class Dashboard extends React.Component {
 
                 <Grid item xs={12} md={4}>
                     <Paper>
-                        <List>
-                            <ListSubheader>Accounts</ListSubheader>
-                            <AccountList
-                                accounts={this.props.accounts}
-                                accountsLoading={this.props.accountsLoading}
-                                updatePayments={this.props.updatePayments}
-                                paymentsLoading={this.props.paymentsLoading}
-                            />
-                        </List>
+                        <AccountList
+                            accounts={this.props.accounts}
+                            accountsLoading={this.props.accountsLoading}
+                            updatePayments={this.props.updatePayments}
+                            paymentsLoading={this.props.paymentsLoading}
+                        />
                     </Paper>
                 </Grid>
 
                 <Grid item xs={12} md={8}>
                     <Paper>
-                        <List>
-                            <ListSubheader>Payments</ListSubheader>
-                            <PaymentList
-                                payments={this.props.payments}
-                                paymentsLoading={this.props.paymentsLoading}
-                                updatePayments={this.props.updatePayments}
-                            />
-                        </List>
+                        <PaymentList
+                            payments={this.props.payments}
+                            paymentsLoading={this.props.paymentsLoading}
+                            updatePayments={this.props.updatePayments}
+                        />
                     </Paper>
                 </Grid>
             </Grid>

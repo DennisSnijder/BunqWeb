@@ -1,25 +1,26 @@
 const axios = require("axios");
 const Logger = require("../Helpers/Logger");
 
-export function paymentsSetInfo(payments) {
+export function paymentsSetInfo(payments, account_id) {
     // return the action
     return {
         type: "PAYMENTS_SET_INFO",
         payload: {
-            payments: payments
+            payments: payments,
+            account_id: account_id
         }
     };
 }
 
-export function paymentsUpdate(payment_id) {
+export function paymentsUpdate(account_id) {
     return dispatch => {
         dispatch(paymentsLoading());
         axios
-            .get(`/api/payments/${payment_id}`)
+            .get(`/api/payments/${account_id}`)
             .then(response => response.data)
             .then(json => {
                 // update payments info and stop loading state
-                dispatch(paymentsSetInfo(json));
+                dispatch(paymentsSetInfo(json, account_id));
                 dispatch(paymentsNotLoading());
             })
             .catch(err => {

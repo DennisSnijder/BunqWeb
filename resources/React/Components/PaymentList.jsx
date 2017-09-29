@@ -1,11 +1,20 @@
 import React from "react";
-import {
+import List, {
     ListItem,
     ListItemText,
+    ListSubheader,
     ListItemSecondaryAction
 } from "material-ui/List";
 import Avatar from "material-ui/Avatar";
+import Divider from "material-ui/Divider";
 import { LinearProgress } from "material-ui/Progress";
+
+const styles = {
+    smallAvatar: {
+        width: 50,
+        height: 50
+    }
+};
 
 export default class PaymentList extends React.Component {
     constructor(props, context) {
@@ -15,14 +24,23 @@ export default class PaymentList extends React.Component {
 
     render() {
         if (this.props.paymentsLoading) {
-            return <LinearProgress />;
+            return (
+                <List>
+                    <ListSubheader>Payments</ListSubheader>
+                    <LinearProgress />
+                </List>
+            );
         }
 
         if (!this.props.payments) {
-            return [];
+            return (
+                <List>
+                    <ListSubheader>Payments</ListSubheader>
+                </List>
+            );
         }
 
-        return this.props.payments.map(payment => {
+        const payments = this.props.payments.map(payment => {
             let icon_uri =
                 "https://static.useresponse.com/public/bunq/avatars/default-avatar.svg";
             let avatar = payment.counterparty_alias.avatar;
@@ -35,9 +53,9 @@ export default class PaymentList extends React.Component {
             const paymentAmount = payment.amount.value;
             const paymentColor = paymentAmount < 0 ? "red" : "green";
 
-            return (
+            return [
                 <ListItem>
-                    <Avatar>
+                    <Avatar style={styles.smallAvatar}>
                         <img width={50} src={icon_uri} />
                     </Avatar>
                     <ListItemText
@@ -45,10 +63,21 @@ export default class PaymentList extends React.Component {
                         secondary={paymentDate}
                     />
                     <ListItemSecondaryAction>
-                        <p style={{ marginRight: 20, color: paymentColor }}>€ {paymentAmount}</p>
+                        <p style={{ marginRight: 20, color: paymentColor }}>
+                            € {paymentAmount}
+                        </p>
                     </ListItemSecondaryAction>
-                </ListItem>
-            );
+                </ListItem>,
+                <Divider />
+            ];
         });
+
+        return (
+            <List>
+                <ListSubheader>Payments - {payments.length}</ListSubheader>
+                <Divider />
+                {payments}
+            </List>
+        );
     }
 }

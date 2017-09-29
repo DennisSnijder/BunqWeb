@@ -1,7 +1,15 @@
 import React from "react";
 import Avatar from "material-ui/Avatar";
 import { LinearProgress } from "material-ui/Progress";
-import { ListItem, ListItemText } from "material-ui/List";
+import Divider from "material-ui/Divider";
+import List, { ListSubheader, ListItem, ListItemText } from "material-ui/List";
+
+const styles = {
+    bigAvatar: {
+        width: 60,
+        height: 60
+    }
+};
 
 export default class AccountList extends React.Component {
     constructor(props, context) {
@@ -19,22 +27,36 @@ export default class AccountList extends React.Component {
 
     render() {
         if (this.props.accountsLoading) {
-            return <LinearProgress />;
+            return (
+                <List>
+                    <ListSubheader>Accounts</ListSubheader>
+                    <LinearProgress />
+                </List>
+            );
         }
 
         if (!this.props.accounts) {
             return [];
+            return (
+                <List>
+                    <ListSubheader>Accounts</ListSubheader>
+                </List>
+            );
         }
 
-        return this.props.accounts.map(account => {
+        let totalBalance = 0;
+
+        const accounts = this.props.accounts.map(account => {
+            totalBalance += account.balance.value;
             return (
                 <ListItem
                     button
+                    divider
                     onClick={this.fetchPaymentsHandler(account.id)}
                 >
-                    <Avatar>
+                    <Avatar style={styles.bigAvatar}>
                         <img
-                            width={50}
+                            width={60}
                             src={`/api/attachment/${account.avatar.image[0]
                                 .attachment_public_uuid}`}
                         />
@@ -46,5 +68,13 @@ export default class AccountList extends React.Component {
                 </ListItem>
             );
         });
+
+        return (
+            <List>
+                <ListSubheader>Accounts - {accounts.length}</ListSubheader>
+                <Divider />
+                {accounts}
+            </List>
+        );
     }
 }
