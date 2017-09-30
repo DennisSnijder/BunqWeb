@@ -25,9 +25,7 @@ $app->register(new BunqServiceProvider);
 $app->register(new RepositoryServiceProvider);
 $app->register(new UserServiceProvider);
 
-$app->mount('/login', new LoginControllerProvider);
 $app->mount('/', new DashboardControllerProvider);
-
 $app->mount('/api', new APIControllerProvider);
 
 return $app;

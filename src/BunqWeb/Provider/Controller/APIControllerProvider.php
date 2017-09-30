@@ -2,8 +2,9 @@
 
 namespace BunqWeb\Provider\Controller;
 
-
-use BunqWeb\Controller\APIController;
+use BunqWeb\Controller\API\AttachmentController;
+use BunqWeb\Controller\API\LoginController;
+use BunqWeb\Controller\API\MonetaryAccountController;
 use Silex\Api\ControllerProviderInterface;
 use Silex\Application;
 use Silex\ControllerCollection;
@@ -18,15 +19,26 @@ class APIControllerProvider implements ControllerProviderInterface
         /** @var ControllerCollection $collection */
         $collection = $app['controllers_factory'];
 
-        $APIController = new APIController(
-            $app['bunq.api.context'],
-            $app['session'],
-            $app['monetary.account.repository']
+        $loginController = new LoginController(
+            $app['user.repository'],
+            $app['session']
         );
 
-        $collection->get('/attachment/{uuid}', [$APIController, 'getAttachmentForUUID']);
-        $collection->get('/payments/{monetaryAccountId}', [$APIController, 'getPaymentsForMonetaryAccount']);
-        $collection->get('/accounts', [$APIController, 'getMonetaryAccountForCurrentUser']);
+        $attachmentController = new AttachmentController(
+            $app['bunq.api.context']
+        );
+
+        $monetaryAccountController = new MonetaryAccountController(
+            $app['session'],
+            $app['bunq.api.context']
+        );
+
+        $collection->get('/users', [$loginController, 'getAvailableUsers']);
+        $collection->post('/login', [$loginController, 'handleLoginRequest']);
+
+        $collection->get('/attachment/{uuid}', [$attachmentController, 'getAttachmentForUUID']);
+        $collection->get('/payments/{monetaryAccountId}', [$monetaryAccountController, 'getPaymentsForMonetaryAccount']);
+        $collection->get('/accounts', [$monetaryAccountController, 'getMonetaryAccountForCurrentUser']);
 
         return $collection;
     }

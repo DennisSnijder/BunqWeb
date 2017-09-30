@@ -3,8 +3,9 @@ namespace BunqWeb\Model;
 
 use bunq\Model\Generated\UserCompany;
 use bunq\Model\Generated\UserPerson;
+use JsonSerializable;
 
-class User
+class User implements JsonSerializable
 {
     const TYPE_COMPANY = 'user-company';
     const TYPE_PERSON = 'user-person';
@@ -74,5 +75,18 @@ class User
     public function getPublicAttachmentUUID(): string
     {
         return $this->publicAttachmentUUID;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'displayName' => $this->getDisplayName(),
+            'type' => $this->getType(),
+            'publicAttachmentUUID' => $this->getPublicAttachmentUUID()
+        ];
     }
 }

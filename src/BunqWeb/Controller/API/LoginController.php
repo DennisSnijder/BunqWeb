@@ -1,18 +1,15 @@
 <?php
-namespace BunqWeb\Controller;
+
+namespace BunqWeb\Controller\API;
 
 use BunqWeb\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class LoginController
 {
-    /**
-     * @var \Twig_Environment
-     */
-    private $twig;
-
     /**
      * @var UserRepository
      */
@@ -23,16 +20,15 @@ class LoginController
      */
     private $session;
 
-    public function __construct(\Twig_Environment $twig, UserRepository $userRepository, Session $session)
+    public function __construct(UserRepository $userRepository, Session $session)
     {
-        $this->twig = $twig;
         $this->userRepository = $userRepository;
         $this->session = $session;
     }
 
-    public function renderLoginPage()
+    public function getAvailableUsers()
     {
-        return $this->twig->render('login/index.html.twig', [
+        return new JsonResponse([
             'users' => $this->userRepository->getUsers()
         ]);
     }
@@ -45,6 +41,8 @@ class LoginController
         $user = $this->userRepository->getUserByIdentifier($id, $type);
         $this->session->set('user', $user);
 
-        return new RedirectResponse('/');
+        return new JsonResponse([
+            'user' => $user
+        ]);
     }
 }

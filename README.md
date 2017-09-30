@@ -21,6 +21,7 @@ open in the `config.yml`. fill in your API key and fill in the Permitted IP's
 #### Step 5: Determine the right environment
 In the `config.yml` easily switch the `sandbox` to `false` to switch to the Bunq production API.
 
+
 ## Development Setup
 
 #### Step 1: Install dependencies
