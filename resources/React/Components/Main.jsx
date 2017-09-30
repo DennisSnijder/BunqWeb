@@ -24,6 +24,13 @@ class Main extends React.Component {
         this.state = {};
     }
 
+    componentDidMount() {
+        if (this.props.user !== false) {
+            // refresh user to make sure it is still available
+            this.props.loginUser(this.props.user.id, this.props.user.type);
+        }
+    }
+
     render() {
         const childProps = {
             // uniqueness to help with triggering route change animations
