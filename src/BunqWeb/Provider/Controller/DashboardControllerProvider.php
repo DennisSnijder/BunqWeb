@@ -1,4 +1,5 @@
 <?php
+
 namespace BunqWeb\Provider\Controller;
 
 
@@ -18,11 +19,7 @@ class DashboardControllerProvider implements ControllerProviderInterface
         /** @var ControllerCollection $collection */
         $collection = $app['controllers_factory'];
 
-        $dashboardController = new DashboardController(
-            $app['twig'],
-            $app['monetary.account.repository'],
-            $app['session']
-        );
+        $dashboardController = new DashboardController($app['twig']);
 
         $collection->get('/', [$dashboardController, 'renderDashboardPage']);
 
