@@ -3,9 +3,6 @@ import { Route, Switch } from "react-router-dom";
 
 // import PrivateRoute from "./Components/Sub/PrivateRoute";
 import PublicRoute from "./Components/Sub/PublicRoute";
-
-// load the pages
-import Home from "./Pages/Home";
 import Dashboard from "./Pages/Dashboard";
 import NotFound from "./Pages/NotFound";
 
@@ -24,20 +21,11 @@ export default class Routes extends React.Component {
                         key={wrapperProps.location.key}
                         location={wrapperProps.location}
                     >
+                        {/* Normally we protect this route using a PrivateRoute. Disabled until the 'user' is implemented with redux */}
                         <PublicRoute
                             exact
+                            user_info={this.props.user_info}
                             path="/"
-                            user_info={this.props.user_info}
-                            render={props => (
-                                <Home {...props} {...this.props.childProps} />
-                            )}
-                        />
-
-
-                        {/* Normally we protect this route using a PrivateRoute. Disabled for testing */}
-                        <PublicRoute
-                            user_info={this.props.user_info}
-                            path="/react"
                             render={props => {
                                 return (
                                     <Dashboard

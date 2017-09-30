@@ -1,38 +1,6 @@
 {% extends "layouts/base.html.twig" %}
 
 {% block content %}
-    <h1>Welcome {{ user.getDisplayName() }}</h1>
-    <hr />
-
-    <input id="payment-prototype" type="hidden" value="{{ block('payment_prototype') | e('html_attr') }}">
-
-    <div class="bank-account-container">
-    {% for account in monetaryAccounts if account.status != 'CANCELLED' %}
-        <div class="bank-account" data-id="{{ account.getId() }}">
-            <img width="50" src="/api/attachment/{{ account.avatar.image[0].attachmentPublicUuid }}" />
-            <div class="summary">
-                <h2>{{ account.getDescription }}</h2>
-                {% if app.config.app.hide_balances == false %}
-                    <h3>€ {{ account.getBalance().getValue() }}</h3>
-                {% endif %}
-            </div>
-        </div>
-    {% endfor %}
-    </div>
-
-    <div class="payment-container">
-
-    </div>
+    <div id="app"></div>
 {% endblock content %}
-
-{% block payment_prototype %}
-    <div class="single-payment">
-        <img width="50" src="__PAYMENT_ICON_URI__" />
-        <div class="counter-party">
-            <span>__COUNTER_PARTY__</span>
-            <small class="date">__PAYMENT_DATE__</small>
-        </div>
-        <span class="amount">__AMOUNT__</span>
-    </div>
-{% endblock payment_prototype %}
 
