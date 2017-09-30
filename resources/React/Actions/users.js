@@ -1,0 +1,41 @@
+const axios = require("axios");
+const Logger = require("../Helpers/Logger");
+
+export function usersSetInfo(users) {
+    return {
+        type: "USERS_SET_INFO",
+        payload: {
+            users: users
+        }
+    };
+}
+
+export function usersUpdate() {
+    return dispatch => {
+        dispatch(usersLoading());
+        axios
+            .get(`/api/users`)
+            .then(response => response.data)
+            .then(json => {
+                dispatch(usersSetInfo(json.users));
+                dispatch(usersNotLoading());
+                dispatch(usersInitialCheck());
+            })
+            .catch(err => {
+                dispatch(usersInitialCheck());
+                Logger.trace(err);
+            });
+    };
+}
+
+export function usersLoading() {
+    return { type: "USERS_IS_LOADING" };
+}
+
+export function usersNotLoading() {
+    return { type: "USERS_IS_NOT_LOADING" };
+}
+
+export function usersInitialCheck() {
+    return { type: "USERS_INITIAL_CHECK" };
+}

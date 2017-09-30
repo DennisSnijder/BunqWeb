@@ -1,9 +1,11 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-// import PrivateRoute from "./Components/Sub/PrivateRoute";
+import PrivateRoute from "./Components/Sub/PrivateRoute";
 import PublicRoute from "./Components/Sub/PublicRoute";
 import Dashboard from "./Pages/Dashboard";
+import Login from "./Pages/Login";
+import Pay from "./Pages/Pay";
 import NotFound from "./Pages/NotFound";
 
 // router react component
@@ -21,14 +23,39 @@ export default class Routes extends React.Component {
                         key={wrapperProps.location.key}
                         location={wrapperProps.location}
                     >
-                        {/* Normally we protect this route using a PrivateRoute. Disabled until the 'user' is implemented with redux */}
-                        <PublicRoute
+                        <PrivateRoute
                             exact
-                            user_info={this.props.user_info}
                             path="/"
+                            user={this.props.user}
                             render={props => {
                                 return (
                                     <Dashboard
+                                        {...props}
+                                        {...this.props.childProps}
+                                    />
+                                );
+                            }}
+                        />
+
+                        <PrivateRoute
+                            path="/pay"
+                            user={this.props.user}
+                            render={props => {
+                                return (
+                                    <Pay
+                                        {...props}
+                                        {...this.props.childProps}
+                                    />
+                                );
+                            }}
+                        />
+
+                        <PublicRoute
+                            path="/login"
+                            user={this.props.user}
+                            render={props => {
+                                return (
+                                    <Login
                                         {...props}
                                         {...this.props.childProps}
                                     />

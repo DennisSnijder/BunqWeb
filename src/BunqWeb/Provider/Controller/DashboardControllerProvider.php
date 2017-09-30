@@ -22,6 +22,8 @@ class DashboardControllerProvider implements ControllerProviderInterface
         $dashboardController = new DashboardController($app['twig']);
 
         $collection->get('/', [$dashboardController, 'renderDashboardPage']);
+        $collection->get('/login', [$dashboardController, 'renderDashboardPage']);
+        $collection->get('/pay', [$dashboardController, 'renderDashboardPage']);
 
         return $collection;
     }

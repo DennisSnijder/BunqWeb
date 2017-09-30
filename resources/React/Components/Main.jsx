@@ -11,7 +11,8 @@ import DefaultThemeConfig from "../Themes/DefaultTheme";
 const DefaultTheme = createMuiTheme(DefaultThemeConfig);
 
 // redux actions
-import { userLoadLocalstorage, userUpdate } from "../Actions/user.js";
+import { userLogin, userLogout } from "../Actions/user.js";
+import { usersUpdate } from "../Actions/users.js";
 import { paymentsUpdate } from "../Actions/payments.js";
 import { accountsUpdate } from "../Actions/accounts.js";
 import { closeModal, openModal } from "../Actions/modal.js";
@@ -23,19 +24,19 @@ class Main extends React.Component {
         this.state = {};
     }
 
-    componentDidMount() {
-        this.props.userLoadLocalstorage();
-
-        this.props.updateAccounts();
-    }
-
     render() {
         const childProps = {
             // uniqueness to help with triggering route change animations
             key: this.props.location.pathname,
 
-            user_info: this.props.user_info,
-            updateUser: this.props.updateUser,
+            user: this.props.user,
+            userLoading: this.props.userLoading,
+            loginUser: this.props.loginUser,
+            logoutUser: this.props.logoutUser,
+
+            users: this.props.users,
+            usersLoading: this.props.usersLoading,
+            updateUsers: this.props.updateUsers,
 
             paymentsLoading: this.props.paymentsLoading,
             paymentsAccountId: this.props.paymentsAccountId,
@@ -44,7 +45,7 @@ class Main extends React.Component {
 
             accountsLoading: this.props.accountsLoading,
             accounts: this.props.accounts,
-            updateaccounts: this.props.updateaccounts,
+            updateAccounts: this.props.updateAccounts,
 
             openModal: this.props.openModal,
             closeModal: this.props.closeModal,
@@ -84,7 +85,7 @@ class Main extends React.Component {
                     />
 
                     <RouteComponent
-                        user_info={this.props.user_info}
+                        user={this.props.user}
                         childProps={childProps}
                     />
                 </div>
@@ -96,7 +97,13 @@ export default withRouter(
     connect(
         store => {
             return {
-                user_info: store.user.user_info,
+                user: store.user.user,
+                userInitialCheck: store.user.initialCheck,
+                userLoading: store.user.loading,
+
+                users: store.users.users,
+                usersInitialCheck: store.users.initialCheck,
+                usersLoading: store.users.loading,
 
                 payments: store.payments.payments,
                 paymentsLoading: store.payments.loading,
@@ -124,12 +131,15 @@ export default withRouter(
                 openModal: (message, title) =>
                     dispatch(openModal(message, title)),
 
-                updatePayments: (accountId) => dispatch(paymentsUpdate(accountId)),
+                updatePayments: accountId =>
+                    dispatch(paymentsUpdate(accountId)),
 
                 updateAccounts: () => dispatch(accountsUpdate()),
 
-                updateUser: () => dispatch(userUpdate()),
-                userLoadLocalstorage: () => dispatch(userLoadLocalstorage())
+                updateUsers: () => dispatch(usersUpdate()),
+
+                loginUser: (id, type) => dispatch(userLogin(id, type)),
+                logoutUser: () => dispatch(userLogout())
             };
         }
     )(Main)

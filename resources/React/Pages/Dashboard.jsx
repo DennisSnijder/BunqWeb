@@ -1,15 +1,25 @@
 import React from "react";
 import Helmet from "react-helmet";
-import List, { ListSubheader } from "material-ui/List";
 import Paper from "material-ui/Paper";
+import Button from "material-ui/Button";
 import Grid from "material-ui/Grid";
 import PaymentList from "../Components/PaymentList";
 import AccountList from "../Components/AccountList";
+
+const styles = {
+    btn: {
+        width: "100%"
+    }
+};
 
 export default class Dashboard extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {};
+    }
+
+    componentDidMount() {
+        this.props.updateAccounts();
     }
 
     render() {
@@ -18,6 +28,16 @@ export default class Dashboard extends React.Component {
                 <Helmet>
                     <title>{`BunqWeb - Dashboard`}</title>
                 </Helmet>
+
+                <Grid item xs={10}>
+                    <h1>Welcome {this.props.user.displayName}</h1>
+                </Grid>
+
+                <Grid item xs={2}>
+                    <Button style={styles.btn} onClick={this.props.logoutUser}>
+                        Switch User
+                    </Button>
+                </Grid>
 
                 <Grid item xs={12} md={4}>
                     <Paper>

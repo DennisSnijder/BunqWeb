@@ -1,40 +1,36 @@
-const store = require("store");
-
-const userDefault = store.get("user") || false;
 export const defaultState = {
-    user: userDefault,
+    users: [],
     loading: false,
     initialCheck: false
 };
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case "USER_SET_INFO":
-            store.set("user", action.payload.user);
+        case "USERS_SET_INFO":
             return {
                 ...state,
-                user: action.payload.user
+                users: action.payload.users
             };
 
-        case "USER_LOGOUT":
+        case "USERS_LOGOUT":
             return {
                 ...state,
-                user: false
+                users: []
             };
 
-        case "USER_IS_LOADING":
+        case "USERS_IS_LOADING":
             return {
                 ...state,
                 loading: true
             };
 
-        case "USER_IS_NOT_LOADING":
+        case "USERS_IS_NOT_LOADING":
             return {
                 ...state,
                 loading: false
             };
 
-        case "USER_INITIAL_CHECK":
+        case "USERS_INITIAL_CHECK":
             return {
                 ...state,
                 initialCheck: true
