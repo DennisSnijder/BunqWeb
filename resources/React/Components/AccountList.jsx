@@ -47,6 +47,9 @@ export default class AccountList extends React.Component {
         let totalBalance = 0;
 
         const accounts = this.props.accounts.map(account => {
+            if (account.status === "CANCELLED") {
+                return null;
+            }
             totalBalance += account.balance.value;
             return (
                 <ListItem
