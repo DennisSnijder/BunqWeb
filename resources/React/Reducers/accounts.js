@@ -6,7 +6,6 @@ export const defaultState = {
 export default (state = defaultState, action) => {
     switch (action.type) {
         case "ACCOUNTS_SET_INFO":
-            // update local storage
             return {
                 ...state,
                 accounts: action.payload.accounts

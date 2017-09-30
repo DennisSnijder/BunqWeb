@@ -1,6 +1,6 @@
 const store = require("store");
 
-const userDefault = store.get("user") || false;
+const userDefault = store.get("user") !== undefined ? store.get("user") : false;
 export const defaultState = {
     user: userDefault,
     loading: false,
