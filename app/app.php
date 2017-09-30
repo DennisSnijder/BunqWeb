@@ -2,11 +2,9 @@
 
 use BunqWeb\Provider\Controller\APIControllerProvider;
 use BunqWeb\Provider\Controller\DashboardControllerProvider;
-use BunqWeb\Provider\Controller\LoginControllerProvider;
 use BunqWeb\Provider\Service\BunqServiceProvider;
 use BunqWeb\Provider\Service\ConfigServiceProvider;
 use BunqWeb\Provider\Service\RepositoryServiceProvider;
-use BunqWeb\Provider\Service\UserServiceProvider;
 
 require_once __DIR__ . '/bootstrap.php';
 
@@ -23,7 +21,6 @@ $app->register(new \Silex\Provider\SessionServiceProvider);
 $app->register(new ConfigServiceProvider);
 $app->register(new BunqServiceProvider);
 $app->register(new RepositoryServiceProvider);
-$app->register(new UserServiceProvider);
 
 $app->mount('/', new DashboardControllerProvider);
 $app->mount('/api', new APIControllerProvider);

@@ -34,7 +34,7 @@ class APIControllerProvider implements ControllerProviderInterface
         );
 
         $collection->get('/users', [$loginController, 'getAvailableUsers']);
-        $collection->post('/login', [$loginController, 'handleLoginRequest']);
+        $collection->match('/login', [$loginController, 'handleLoginRequest']);
 
         $collection->get('/attachment/{uuid}', [$attachmentController, 'getAttachmentForUUID']);
         $collection->get('/payments/{monetaryAccountId}', [$monetaryAccountController, 'getPaymentsForMonetaryAccount']);
