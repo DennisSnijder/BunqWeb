@@ -4,7 +4,7 @@ module.exports = (title, message, options = {}) => {
     return new Promise((resolve, reject) => {
         // default notifcation options
         const defaultOptions = {
-            icon: "https://uploadbro.com/favicon-32x32.png",
+            icon: "https://static.useresponse.com/public/bunq/branding/favicon.ico",
             body: message
         };
 
