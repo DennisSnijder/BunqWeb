@@ -2,6 +2,7 @@
   "name": "BunqWeb",
   "version": "0.0.0",
   "scripts": {
+    "serve": "grunt serve",
     "build": "cross-env NODE_ENV=production webpack --progress --colors",
     "build:dev": "cross-env NODE_ENV=development webpack --debug --watch --progress --colors"
   },

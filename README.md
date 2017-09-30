@@ -13,8 +13,9 @@ $ npm install
 
 #### Step 2: Compile assets
 ```bash
-$ npm install -g grunt
-$ grunt serve
+$ npm install -g grunt webpack cross-env
+$ npm run build
+$ npm run serve
 ```
 
 #### Step 3: Config file
