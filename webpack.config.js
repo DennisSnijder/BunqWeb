@@ -2,17 +2,19 @@ require("dotenv").config();
 
 const path = require("path");
 const webpack = require("webpack");
-const WebpackCleanupPlugin = require("webpack-cleanup-plugin");
+const SWPlugin = require("./resources/webpack/SWPlugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // src and build dirs
 const SRC_DIR = path.resolve(__dirname, "resources/React");
-const BUILD_DIR = path.resolve(__dirname, "web/assets/dist/");
-const PUBLIC_PATH = "/assets/dist/";
+const BUILD_DIR = path.resolve(__dirname, "web");
+const OUTPUT_DIR = "assets/dist/";
 
-const DEV = process.env.NODE_ENV !== "production";
+const PRODUCTION = process.env.NODE_ENV === "production";
+const DEVELOPMENT = !PRODUCTION;
 
 let config = {
     entry: {
@@ -20,9 +22,9 @@ let config = {
     },
     output: {
         path: BUILD_DIR,
-        filename: "[name].js",
-        publicPath: PUBLIC_PATH,
-        chunkFilename: "[name].[chunkhash].bundle.js"
+        filename: OUTPUT_DIR + "[name].js",
+        publicPath: "/",
+        chunkFilename: OUTPUT_DIR + "[name].[chunkhash].bundle.js"
     },
     resolve: {
         extensions: [".jsx", ".scss", ".js", ".json", ".css"],
@@ -32,13 +34,13 @@ let config = {
             path.resolve(__dirname, "./src")
         ]
     },
-    devtool: DEV ? "source-map" : false,
+    devtool: DEVELOPMENT ? "source-map" : false,
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
-            PRODUCTION_MODE: JSON.stringify(!DEV),
-            DEVELOPMENT_MODE: JSON.stringify(DEV),
-            "process.env.DEBUG": JSON.stringify(DEV),
+            PRODUCTION_MODE: JSON.stringify(PRODUCTION),
+            DEVELOPMENT_MODE: JSON.stringify(DEVELOPMENT),
+            "process.env.DEBUG": JSON.stringify(DEVELOPMENT),
             "process.env.NODE_ENV": JSON.stringify(
                 process.env.NODE_ENV || "development"
             ),
@@ -67,7 +69,9 @@ let config = {
              */
             generateStatsFile: true,
             statsFilename: path.resolve(__dirname, "./webpack.stats.json")
-        })
+        }),
+        // register our custom service worker plugin
+        new SWPlugin()
     ],
     module: {
         rules: [
@@ -99,7 +103,7 @@ let config = {
     }
 };
 
-if (!DEV) {
+if (PRODUCTION) {
     // production only plugins
 
     // optimize js output
@@ -116,11 +120,10 @@ if (!DEV) {
     );
     // cleanup old build files from BUILD
     config.plugins.push(
-        new WebpackCleanupPlugin({
-            // disable output
-            quiet: true,
-            // enable to preview which files will be deleted
-            preview: false
+        new CleanWebpackPlugin([`${BUILD_DIR}/${OUTPUT_DIR}/*.*`], {
+            exclude: [],
+            verbose: false,
+            dry: false
         })
     );
 } else {

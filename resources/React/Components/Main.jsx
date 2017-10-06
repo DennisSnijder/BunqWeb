@@ -29,6 +29,9 @@ class Main extends React.Component {
             // refresh user to make sure it is still available
             this.props.loginUser(this.props.user.id, this.props.user.type);
         }
+
+        // make this global to allow service worker to access it :^)
+        window.showSnackbar = this.props.openSnackbar;
     }
 
     render() {

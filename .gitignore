@@ -22,3 +22,4 @@ var/*
 # webpack dev files
 webpack.report.html
 webpack.stats.json
+/web/sw.js
