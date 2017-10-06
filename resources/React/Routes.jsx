@@ -3,10 +3,20 @@ import { Route, Switch } from "react-router-dom";
 
 import PrivateRoute from "./Components/Sub/PrivateRoute";
 import PublicRoute from "./Components/Sub/PublicRoute";
-import Dashboard from "./Pages/Dashboard";
-import Login from "./Pages/Login";
-import Pay from "./Pages/Pay";
-import NotFound from "./Pages/NotFound";
+import ComponentLoader from "./Components/Sub/ComponentLoader";
+
+const Dashboard = ComponentLoader(() =>
+    import(/* webpackChunkName: "dashboard" */ "./Pages/Dashboard")
+);
+const Login = ComponentLoader(() =>
+    import(/* webpackChunkName: "login" */ "./Pages/Login")
+);
+const Pay = ComponentLoader(() =>
+    import(/* webpackChunkName: "pay" */ "./Pages/Pay")
+);
+const NotFound = ComponentLoader(() =>
+    import(/* webpackChunkName: "notfound" */ "./Pages/NotFound")
+);
 
 // router react component
 export default class Routes extends React.Component {
@@ -27,40 +37,28 @@ export default class Routes extends React.Component {
                             exact
                             path="/"
                             user={this.props.user}
-                            render={props => {
-                                return (
-                                    <Dashboard
-                                        {...props}
-                                        {...this.props.childProps}
-                                    />
-                                );
-                            }}
+                            render={props => (
+                                <Dashboard
+                                    {...props}
+                                    {...this.props.childProps}
+                                />
+                            )}
                         />
 
                         <PrivateRoute
                             path="/pay"
                             user={this.props.user}
-                            render={props => {
-                                return (
-                                    <Pay
-                                        {...props}
-                                        {...this.props.childProps}
-                                    />
-                                );
-                            }}
+                            render={props => (
+                                <Pay {...props} {...this.props.childProps} />
+                            )}
                         />
 
                         <PublicRoute
                             path="/login"
                             user={this.props.user}
-                            render={props => {
-                                return (
-                                    <Login
-                                        {...props}
-                                        {...this.props.childProps}
-                                    />
-                                );
-                            }}
+                            render={props => (
+                                <Login {...props} {...this.props.childProps} />
+                            )}
                         />
 
                         <Route

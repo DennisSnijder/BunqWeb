@@ -64,7 +64,9 @@
     "redux-thunk": "^2.1.0",
     "store": "^2.0.4",
     "style-loader": "^0.16.1",
-    "webpack": "^3.6.0"
+    "webpack": "^3.6.0",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-cleanup-plugin": "^0.5.1"
   },
   "engines": {
     "node": ">=8.0.0"

@@ -2,7 +2,6 @@ const axios = require("axios");
 const Logger = require("../Helpers/Logger");
 
 export function accountsSetInfo(accounts) {
-    // return the action
     return {
         type: "ACCOUNTS_SET_INFO",
         payload: {
