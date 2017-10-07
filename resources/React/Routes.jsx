@@ -57,7 +57,7 @@ export default class Routes extends React.Component {
                         />
 
                         <PrivateRoute
-                            path="/payment/:accountId/:paymentId"
+                            path="/payment/:paymentId"
                             user={this.props.user}
                             render={props => (
                                 <PaymentInfo {...props} {...this.props.childProps} />

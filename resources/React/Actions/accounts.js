@@ -30,7 +30,19 @@ export function accountsLoading() {
     return { type: "ACCOUNTS_IS_LOADING" };
 }
 
+export function accountsSelectAccount(account_id) {
+    return {
+        type: "ACCOUNTS_SELECT_ACCOUNT",
+        payload: {
+            selectedAccount: account_id
+        }
+    };
+}
+
 export function accountsNotLoading() {
     return { type: "ACCOUNTS_IS_NOT_LOADING" };
 }
 
+export function accountsClear() {
+    return { type: "ACCOUNTS_CLEAR" };
+}

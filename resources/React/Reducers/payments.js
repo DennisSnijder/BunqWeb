@@ -1,6 +1,6 @@
 export const defaultState = {
     payments: [],
-    account_id: 0,
+    account_id: false,
     loading: false
 };
 
@@ -22,6 +22,13 @@ export default (state = defaultState, action) => {
         case "PAYMENTS_IS_NOT_LOADING":
             return {
                 ...state,
+                loading: false
+            };
+
+        case "PAYMENTS_CLEAR":
+            return {
+                payments: [],
+                account_id: false,
                 loading: false
             };
     }

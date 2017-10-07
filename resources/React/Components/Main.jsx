@@ -14,8 +14,8 @@ const DefaultTheme = createMuiTheme(DefaultThemeConfig);
 import { userLogin, userLogout } from "../Actions/user.js";
 import { usersUpdate } from "../Actions/users.js";
 import { paymentsUpdate } from "../Actions/payments.js";
-import { paymentUpdate } from "../Actions/payment_info.js";
-import { accountsUpdate } from "../Actions/accounts.js";
+import { paymentInfoUpdate } from "../Actions/payment_info.js";
+import { accountsUpdate, accountsSelectAccount } from "../Actions/accounts.js";
 import { closeModal, openModal } from "../Actions/modal.js";
 import { closeSnackbar, openSnackbar } from "../Actions/snackbar.js";
 
@@ -63,6 +63,8 @@ class Main extends React.Component {
             accountsLoading: this.props.accountsLoading,
             accounts: this.props.accounts,
             updateAccounts: this.props.updateAccounts,
+            selectAccount: this.props.selectAccount,
+            accountsSelectedAccount: this.props.accountsSelectedAccount,
 
             openModal: this.props.openModal,
             closeModal: this.props.closeModal,
@@ -132,6 +134,7 @@ export default withRouter(
                 paymentId: store.payment_info.payment_id,
 
                 accounts: store.accounts.accounts,
+                accountsSelectedAccount: store.accounts.selectedAccount,
                 accountsLoading: store.accounts.loading,
 
                 modalText: store.modal.message,
@@ -157,9 +160,11 @@ export default withRouter(
                     dispatch(paymentsUpdate(accountId)),
 
                 updatePayment: (accountId, paymentId) =>
-                    dispatch(paymentUpdate(accountId, paymentId)),
+                    dispatch(paymentInfoUpdate(accountId, paymentId)),
 
                 updateAccounts: () => dispatch(accountsUpdate()),
+                selectAccount: acountId =>
+                    dispatch(accountsSelectAccount(acountId)),
 
                 updateUsers: () => dispatch(usersUpdate()),
 

@@ -1,6 +1,11 @@
 const axios = require("axios");
 const Logger = require("../Helpers/Logger");
 
+import { paymentInfoClear } from "./payment_info";
+import { paymentsClear } from "./payments";
+import { usersClear } from "./users";
+import { accountsClear } from "./accounts";
+
 export function userSetInfo(user) {
     return {
         type: "USER_SET_INFO",
@@ -30,11 +35,16 @@ export function userLogin(id, type) {
 }
 
 export function userLogout() {
-    return {
-        type: "USER_SET_INFO",
-        payload: {
-            user: false
-        }
+    return dispatch => {
+        // logout the user
+        dispatch({
+            type: "USER_LOGOUT"
+        });
+        // clear info from most reducers
+        dispatch(paymentInfoClear());
+        dispatch(accountsClear());
+        dispatch(paymentsClear());
+        dispatch(usersClear());
     };
 }
 

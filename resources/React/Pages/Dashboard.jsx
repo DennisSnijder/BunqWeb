@@ -43,9 +43,12 @@ export default class Dashboard extends React.Component {
                     <Paper>
                         <AccountList
                             accounts={this.props.accounts}
+                            selectAccount={this.props.selectAccount}
+                            accountsSelectedAccount={this.props.accountsSelectedAccount}
                             accountsLoading={this.props.accountsLoading}
                             updatePayments={this.props.updatePayments}
                             paymentsLoading={this.props.paymentsLoading}
+                            paymentsAccountId={this.props.paymentsAccountId}
                         />
                     </Paper>
                 </Grid>

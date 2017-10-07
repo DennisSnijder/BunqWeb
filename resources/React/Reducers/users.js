@@ -35,6 +35,13 @@ export default (state = defaultState, action) => {
                 ...state,
                 initialCheck: true
             };
+
+        case "USERS_CLEAR":
+            return {
+                users: [],
+                loading: false,
+                initialCheck: false
+            };
     }
     return state;
 };

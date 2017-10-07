@@ -7,7 +7,7 @@ export const defaultState = {
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case "PAYMENT_SET_INFO":
+        case "PAYMENT_INFO_SET_INFO":
             return {
                 ...state,
                 payment: action.payload.payment,
@@ -15,15 +15,23 @@ export default (state = defaultState, action) => {
                 payment_id: action.payload.payment_id,
             };
 
-        case "PAYMENT_IS_LOADING":
+        case "PAYMENT_INFO_IS_LOADING":
             return {
                 ...state,
                 loading: true
             };
 
-        case "PAYMENT_IS_NOT_LOADING":
+        case "PAYMENT_INFO_IS_NOT_LOADING":
             return {
                 ...state,
+                loading: false
+            };
+
+        case "PAYMENT_INFO_CLEAR":
+            return {
+                payment: false,
+                account_id: 0,
+                payment_id: 0,
                 loading: false
             };
     }

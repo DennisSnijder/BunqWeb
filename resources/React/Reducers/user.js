@@ -13,10 +13,12 @@ export default (state = defaultState, action) => {
             store.set("user", action.payload.user);
             return {
                 ...state,
-                user: action.payload.user
+                user: action.payload.user,
+                initialCheck: true
             };
 
         case "USER_LOGOUT":
+            store.remove("user");
             return {
                 ...state,
                 user: false

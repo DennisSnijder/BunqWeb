@@ -17,9 +17,23 @@ export default class AccountList extends React.Component {
         this.state = {};
     }
 
+    componentDidMount() {
+        const { accountsSelectedAccount, paymentsAccountId } = this.props;
+        if (accountsSelectedAccount !== false) {
+            // by default load payments for the selected account
+            if (accountsSelectedAccount !== paymentsAccountId) {
+                // fetch all payments for the account
+                this.props.updatePayments(accountsSelectedAccount);
+            }
+        }
+    }
+
     fetchPaymentsHandler(accountId) {
         return () => {
             if (!this.props.paymentsLoading) {
+                // select this account
+                this.props.selectAccount(accountId);
+                // fetch all payments for the account
                 this.props.updatePayments(accountId);
             }
         };
