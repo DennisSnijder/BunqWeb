@@ -8,6 +8,7 @@ import List, {
 import Avatar from "material-ui/Avatar";
 import Divider from "material-ui/Divider";
 import { LinearProgress } from "material-ui/Progress";
+import NavLink from "../Components/Sub/NavLink";
 
 const styles = {
     smallAvatar: {
@@ -54,7 +55,7 @@ export default class PaymentList extends React.Component {
             const paymentColor = paymentAmount < 0 ? "red" : "green";
 
             return [
-                <ListItem>
+                <ListItem button to={`/payment/${payment.id}`} component={NavLink}>
                     <Avatar style={styles.smallAvatar}>
                         <img width={50} src={icon_uri} />
                     </Avatar>

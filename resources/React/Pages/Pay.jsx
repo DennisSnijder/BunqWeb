@@ -30,7 +30,6 @@ export default class Pay extends React.Component {
         this.setState({
             [name]: event.target.value
         });
-        console.log(name, event.target.value);
     };
 
     render() {

@@ -1,4 +1,5 @@
 <?php
+
 namespace BunqWeb\Controller\API;
 
 
@@ -34,9 +35,18 @@ class MonetaryAccountController
     {
         /** @var User $user */
         $user = $this->session->get('user');
-        $payments =  Payment::listing($this->apiContext, $user->getId(), $monetaryAccountId);
+        $payments = Payment::listing($this->apiContext, $user->getId(), $monetaryAccountId);
 
         return new JsonResponse($payments->getValue());
+    }
+
+    public function getPaymentInfoForPaymentId($monetaryAccountId, $paymentId): Response
+    {
+        /** @var User $user */
+        $user = $this->session->get('user');
+        $payment = Payment::get($this->apiContext, $user->getId(), $monetaryAccountId, $paymentId);
+
+        return new JsonResponse($payment->getValue());
     }
 
     public function getMonetaryAccountForCurrentUser(): Response

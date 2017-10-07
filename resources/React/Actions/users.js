@@ -39,3 +39,7 @@ export function usersNotLoading() {
 export function usersInitialCheck() {
     return { type: "USERS_INITIAL_CHECK" };
 }
+
+export function usersClear() {
+    return { type: "USERS_CLEAR" };
+}

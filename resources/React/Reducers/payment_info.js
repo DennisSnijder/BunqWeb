@@ -1,34 +1,37 @@
 export const defaultState = {
-    payments: [],
-    account_id: false,
+    payment: false,
+    account_id: 0,
+    payment_id: 0,
     loading: false
 };
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case "PAYMENTS_SET_INFO":
+        case "PAYMENT_INFO_SET_INFO":
             return {
                 ...state,
-                payments: action.payload.payments,
+                payment: action.payload.payment,
                 account_id: action.payload.account_id,
+                payment_id: action.payload.payment_id,
             };
 
-        case "PAYMENTS_IS_LOADING":
+        case "PAYMENT_INFO_IS_LOADING":
             return {
                 ...state,
                 loading: true
             };
 
-        case "PAYMENTS_IS_NOT_LOADING":
+        case "PAYMENT_INFO_IS_NOT_LOADING":
             return {
                 ...state,
                 loading: false
             };
 
-        case "PAYMENTS_CLEAR":
+        case "PAYMENT_INFO_CLEAR":
             return {
-                payments: [],
-                account_id: false,
+                payment: false,
+                account_id: 0,
+                payment_id: 0,
                 loading: false
             };
     }

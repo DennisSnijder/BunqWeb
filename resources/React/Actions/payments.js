@@ -38,3 +38,6 @@ export function paymentsNotLoading() {
     return { type: "PAYMENTS_IS_NOT_LOADING" };
 }
 
+export function paymentsClear() {
+    return { type: "PAYMENTS_CLEAR" };
+}
