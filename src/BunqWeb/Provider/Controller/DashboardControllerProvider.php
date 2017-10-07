@@ -24,6 +24,7 @@ class DashboardControllerProvider implements ControllerProviderInterface
         $collection->get('/', [$dashboardController, 'renderDashboardPage']);
         $collection->get('/login', [$dashboardController, 'renderDashboardPage']);
         $collection->get('/pay', [$dashboardController, 'renderDashboardPage']);
+        $collection->get('/payment/{monetaryAccountId}/{paymentId}', [$dashboardController, 'renderDashboardPage']);
 
         return $collection;
     }

@@ -38,6 +38,7 @@ class APIControllerProvider implements ControllerProviderInterface
 
         $collection->get('/attachment/{uuid}', [$attachmentController, 'getAttachmentForUUID']);
         $collection->get('/payments/{monetaryAccountId}', [$monetaryAccountController, 'getPaymentsForMonetaryAccount']);
+        $collection->get('/payment/{monetaryAccountId}/{paymentId}', [$monetaryAccountController, 'getPaymentInfoForPaymentId']);
         $collection->get('/accounts', [$monetaryAccountController, 'getMonetaryAccountForCurrentUser']);
 
         return $collection;

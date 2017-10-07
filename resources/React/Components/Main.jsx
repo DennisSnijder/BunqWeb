@@ -14,6 +14,7 @@ const DefaultTheme = createMuiTheme(DefaultThemeConfig);
 import { userLogin, userLogout } from "../Actions/user.js";
 import { usersUpdate } from "../Actions/users.js";
 import { paymentsUpdate } from "../Actions/payments.js";
+import { paymentUpdate } from "../Actions/payment_info.js";
 import { accountsUpdate } from "../Actions/accounts.js";
 import { closeModal, openModal } from "../Actions/modal.js";
 import { closeSnackbar, openSnackbar } from "../Actions/snackbar.js";
@@ -52,6 +53,12 @@ class Main extends React.Component {
             paymentsAccountId: this.props.paymentsAccountId,
             payments: this.props.payments,
             updatePayments: this.props.updatePayments,
+
+            paymentLoading: this.props.paymentLoading,
+            paymentAccountId: this.props.paymentAccountId,
+            paymentId: this.props.paymentId,
+            payment: this.props.payment,
+            updatePayment: this.props.updatePayment,
 
             accountsLoading: this.props.accountsLoading,
             accounts: this.props.accounts,
@@ -119,6 +126,11 @@ export default withRouter(
                 paymentsLoading: store.payments.loading,
                 paymentsAccountId: store.payments.account_id,
 
+                payment: store.payment_info.payment,
+                paymentLoading: store.payment_info.loading,
+                paymentAccountId: store.payment_info.account_id,
+                paymentId: store.payment_info.payment_id,
+
                 accounts: store.accounts.accounts,
                 accountsLoading: store.accounts.loading,
 
@@ -143,6 +155,9 @@ export default withRouter(
 
                 updatePayments: accountId =>
                     dispatch(paymentsUpdate(accountId)),
+
+                updatePayment: (accountId, paymentId) =>
+                    dispatch(paymentUpdate(accountId, paymentId)),
 
                 updateAccounts: () => dispatch(accountsUpdate()),
 

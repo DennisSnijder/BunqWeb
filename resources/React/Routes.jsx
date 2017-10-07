@@ -14,6 +14,9 @@ const Login = ComponentLoader(() =>
 const Pay = ComponentLoader(() =>
     import(/* webpackChunkName: "pay" */ "./Pages/Pay")
 );
+const PaymentInfo = ComponentLoader(() =>
+    import(/* webpackChunkName: "paymentinfo" */ "./Pages/PaymentInfo")
+);
 const NotFound = ComponentLoader(() =>
     import(/* webpackChunkName: "notfound" */ "./Pages/NotFound")
 );
@@ -50,6 +53,14 @@ export default class Routes extends React.Component {
                             user={this.props.user}
                             render={props => (
                                 <Pay {...props} {...this.props.childProps} />
+                            )}
+                        />
+
+                        <PrivateRoute
+                            path="/payment/:accountId/:paymentId"
+                            user={this.props.user}
+                            render={props => (
+                                <PaymentInfo {...props} {...this.props.childProps} />
                             )}
                         />
 

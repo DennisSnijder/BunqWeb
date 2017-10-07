@@ -6,7 +6,6 @@ export default ({ isLoading, pastDelay, error }) => {
         // during loading but delay has been passed
         return null;
     } else if (error && !isLoading) {
-        console.log(error);
         // failed to load the component
         Logger.error("Failed to load", error);
         return null;
