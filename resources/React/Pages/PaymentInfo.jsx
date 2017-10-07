@@ -4,7 +4,12 @@ import Redirect from "react-router-dom/Redirect";
 import Grid from "material-ui/Grid";
 import Paper from "material-ui/Paper";
 import Button from "material-ui/Button";
+import List, { ListItem, ListItemText } from "material-ui/List";
+import Divider from "material-ui/Divider";
 import ArrowBackIcon from "material-ui-icons/ArrowBack";
+import ArrowForwardIcon from "material-ui-icons/ArrowForward";
+import ArrowUpIcon from "material-ui-icons/ArrowUpward";
+import ArrowDownIcon from "material-ui-icons/ArrowDownward";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import NavLink from "../Components/Sub/NavLink";
 
@@ -13,7 +18,9 @@ const styles = {
     paper: {
         padding: 24
     },
-    inputs: {}
+    textCenter: {
+        textAlign: "center"
+    }
 };
 
 export default class PaymentInfo extends React.Component {
@@ -31,22 +38,132 @@ export default class PaymentInfo extends React.Component {
         this.props.updatePayment(this.props.accountsSelectedAccount, paymentId);
     }
 
+    getBasicInfo(info) {
+        let result = {};
+
+        result.avatar = info.avatar;
+        result.icon_uri =
+            "https://static.useresponse.com/public/bunq/avatars/default-avatar.svg";
+        if (result.avatar) {
+            result.icon_uri = `/api/attachment/${result.avatar.image[0]
+                .attachment_public_uuid}`;
+        }
+        result.displayName = info.display_name;
+        result.iban = info.iban;
+
+        return result;
+    }
+
     render() {
+        const { accountsSelectedAccount, payment, paymentLoading } = this.props;
         // we require a selected account before we can display payment information
-        if (this.props.accountsSelectedAccount === false) {
+        if (accountsSelectedAccount === false) {
             // no account_id set
             return <Redirect to={"/"} />;
         }
 
         let content;
-        if (this.props.payment === false) {
+        if (payment === false || paymentLoading === true) {
             content = (
-                <div style={{ textAlign: "center" }}>
-                    <CircularProgress />
-                </div>
+                <Grid container spacing={24} justify={"center"}>
+                    <Grid item xs={12}>
+                        <div style={{ textAlign: "center" }}>
+                            <CircularProgress />
+                        </div>
+                    </Grid>
+                </Grid>
             );
         } else {
-            content = <Paper style={styles.paper}>payment info</Paper>;
+            // const paymentType = payment.type;
+            const paymentDescription = payment.description;
+            const paymentDate = new Date(payment.created).toLocaleString();
+            const paymentAmount = payment.amount.value;
+            const paymentColor = paymentAmount < 0 ? "orange" : "green";
+
+            const personalInfo = this.getBasicInfo(payment.alias);
+            const counterPartyInfo = this.getBasicInfo(
+                payment.counterparty_alias
+            );
+
+            content = (
+                <Grid
+                    container
+                    spacing={24}
+                    align={"center"}
+                    justify={"center"}
+                >
+                    <Grid item xs={12} sm={5} style={styles.textCenter}>
+                        <img width={90} src={personalInfo.icon_uri} />
+                        <h3>{personalInfo.displayName}</h3>
+                    </Grid>
+
+                    <Grid
+                        item
+                        sm={2}
+                        hidden={{ xsDown: true }}
+                        style={styles.textCenter}
+                    >
+                        {paymentAmount < 0 ? (
+                            <ArrowForwardIcon />
+                        ) : (
+                            <ArrowBackIcon />
+                        )}
+                    </Grid>
+
+                    <Grid
+                        item
+                        xs={12}
+                        hidden={{ smUp: true }}
+                        style={styles.textCenter}
+                    >
+                        {paymentAmount < 0 ? (
+                            <ArrowDownIcon />
+                        ) : (
+                            <ArrowUpIcon />
+                        )}
+                    </Grid>
+
+                    <Grid item xs={12} sm={5} style={styles.textCenter}>
+                        <img width={90} src={counterPartyInfo.icon_uri} />
+                        <h3>{counterPartyInfo.displayName}</h3>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <h1
+                            style={{
+                                textAlign: "center",
+                                color: paymentColor
+                            }}
+                        >
+                            € {paymentAmount}
+                        </h1>
+                        <List>
+                            <Divider />
+                            <ListItem>
+                                <ListItemText
+                                    primary={"Description"}
+                                    secondary={paymentDescription}
+                                />
+                            </ListItem>
+                            <Divider />
+                            <ListItem>
+                                <ListItemText
+                                    primary={"Date"}
+                                    secondary={paymentDate}
+                                />
+                            </ListItem>
+                            <Divider />
+                            <ListItem>
+                                <ListItemText
+                                    primary={"IBAN"}
+                                    secondary={counterPartyInfo.iban}
+                                />
+                            </ListItem>
+                            <Divider />
+                        </List>
+                    </Grid>
+                </Grid>
+            );
         }
 
         return (
@@ -61,7 +178,7 @@ export default class PaymentInfo extends React.Component {
                     </Button>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    {content}
+                    <Paper style={styles.paper}>{content}</Paper>
                 </Grid>
             </Grid>
         );
