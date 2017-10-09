@@ -40,57 +40,45 @@ export default class AccountList extends React.Component {
     }
 
     render() {
-        if (this.props.accountsLoading) {
-            return (
-                <List>
-                    <ListSubheader>Accounts</ListSubheader>
-                    <LinearProgress />
-                </List>
-            );
-        }
+        let accounts = [];
+        let loadingContent = this.props.accountsLoading ? (
+            <LinearProgress />
+        ) : (
+            <Divider />
+        );
 
-        if (!this.props.accounts) {
-            return [];
-            return (
-                <List>
-                    <ListSubheader>Accounts</ListSubheader>
-                </List>
-            );
-        }
-
-        let totalBalance = 0;
-
-        const accounts = this.props.accounts.map(account => {
-            if (account.status === "CANCELLED") {
-                return null;
-            }
-            totalBalance += account.balance.value;
-            return (
-                <ListItem
-                    button
-                    divider
-                    onClick={this.fetchPaymentsHandler(account.id)}
-                >
-                    <Avatar style={styles.bigAvatar}>
-                        <img
-                            width={60}
-                            src={`/api/attachment/${account.avatar.image[0]
-                                .attachment_public_uuid}`}
+        if (this.props.accounts !== false) {
+            accounts = this.props.accounts.map(account => {
+                if (account.status === "CANCELLED") {
+                    return null;
+                }
+                return (
+                    <ListItem
+                        button
+                        divider
+                        onClick={this.fetchPaymentsHandler(account.id)}
+                    >
+                        <Avatar style={styles.bigAvatar}>
+                            <img
+                                width={60}
+                                src={`/api/attachment/${account.avatar.image[0]
+                                    .attachment_public_uuid}`}
+                            />
+                        </Avatar>
+                        <ListItemText
+                            primary={account.description}
+                            secondary={`€ ${account.balance.value}`}
                         />
-                    </Avatar>
-                    <ListItemText
-                        primary={account.description}
-                        secondary={`€ ${account.balance.value}`}
-                    />
-                </ListItem>
-            );
-        });
+                    </ListItem>
+                );
+            });
+        }
 
         return (
             <List>
                 <ListSubheader>Accounts - {accounts.length}</ListSubheader>
-                <Divider />
-                {accounts}
+                {loadingContent}
+                <List>{accounts}</List>
             </List>
         );
     }

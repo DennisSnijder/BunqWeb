@@ -24,60 +24,56 @@ export default class PaymentList extends React.Component {
     }
 
     render() {
-        if (this.props.paymentsLoading) {
-            return (
-                <List>
-                    <ListSubheader>Payments</ListSubheader>
-                    <LinearProgress />
-                </List>
-            );
+        let payments = [];
+        let loadingContent = this.props.paymentsLoading ? (
+            <LinearProgress />
+        ) : (
+            <Divider />
+        );
+
+        if (this.props.payments !== false) {
+            payments = this.props.payments.map(payment => {
+                let icon_uri =
+                    "https://static.useresponse.com/public/bunq/avatars/default-avatar.svg";
+                let avatar = payment.counterparty_alias.avatar;
+                if (avatar) {
+                    icon_uri = `/api/attachment/${avatar.image[0]
+                        .attachment_public_uuid}`;
+                }
+                const displayName = payment.counterparty_alias.display_name;
+                const paymentDate = new Date(payment.created).toLocaleString();
+                const paymentAmount = payment.amount.value;
+                const paymentColor = paymentAmount < 0 ? "red" : "green";
+
+                return [
+                    <ListItem
+                        button
+                        to={`/payment/${payment.id}`}
+                        component={NavLink}
+                    >
+                        <Avatar style={styles.smallAvatar}>
+                            <img width={50} src={icon_uri} />
+                        </Avatar>
+                        <ListItemText
+                            primary={displayName}
+                            secondary={paymentDate}
+                        />
+                        <ListItemSecondaryAction>
+                            <p style={{ marginRight: 20, color: paymentColor }}>
+                                € {paymentAmount}
+                            </p>
+                        </ListItemSecondaryAction>
+                    </ListItem>,
+                    <Divider />
+                ];
+            });
         }
-
-        if (!this.props.payments) {
-            return (
-                <List>
-                    <ListSubheader>Payments</ListSubheader>
-                </List>
-            );
-        }
-
-        const payments = this.props.payments.map(payment => {
-            let icon_uri =
-                "https://static.useresponse.com/public/bunq/avatars/default-avatar.svg";
-            let avatar = payment.counterparty_alias.avatar;
-            if (avatar) {
-                icon_uri = `/api/attachment/${avatar.image[0]
-                    .attachment_public_uuid}`;
-            }
-            const displayName = payment.counterparty_alias.display_name;
-            const paymentDate = new Date(payment.created).toLocaleString();
-            const paymentAmount = payment.amount.value;
-            const paymentColor = paymentAmount < 0 ? "red" : "green";
-
-            return [
-                <ListItem button to={`/payment/${payment.id}`} component={NavLink}>
-                    <Avatar style={styles.smallAvatar}>
-                        <img width={50} src={icon_uri} />
-                    </Avatar>
-                    <ListItemText
-                        primary={displayName}
-                        secondary={paymentDate}
-                    />
-                    <ListItemSecondaryAction>
-                        <p style={{ marginRight: 20, color: paymentColor }}>
-                            € {paymentAmount}
-                        </p>
-                    </ListItemSecondaryAction>
-                </ListItem>,
-                <Divider />
-            ];
-        });
 
         return (
             <List>
                 <ListSubheader>Payments - {payments.length}</ListSubheader>
-                <Divider />
-                {payments}
+                {loadingContent}
+                <List>{payments}</List>
             </List>
         );
     }
