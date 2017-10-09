@@ -24,8 +24,8 @@ export function paymentInfoUpdate(account_id, payment_id) {
                 dispatch(paymentInfoNotLoading());
             })
             .catch(err => {
-                // finish initial check
                 Logger.trace(err);
+                dispatch(paymentInfoNotLoading());
             });
     };
 }

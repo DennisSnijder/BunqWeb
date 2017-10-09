@@ -22,6 +22,7 @@ export function usersUpdate() {
                 dispatch(usersInitialCheck());
             })
             .catch(err => {
+                dispatch(usersNotLoading());
                 dispatch(usersInitialCheck());
                 Logger.trace(err);
             });

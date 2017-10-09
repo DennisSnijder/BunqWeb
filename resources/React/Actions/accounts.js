@@ -22,6 +22,7 @@ export function accountsUpdate() {
             })
             .catch(err => {
                 Logger.trace(err);
+                dispatch(accountsNotLoading());
             });
     };
 }

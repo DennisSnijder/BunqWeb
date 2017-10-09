@@ -30,6 +30,7 @@ export function userLogin(id, type) {
             })
             .catch(err => {
                 Logger.trace(err);
+                dispatch(userNotLoading());
             });
     };
 }
