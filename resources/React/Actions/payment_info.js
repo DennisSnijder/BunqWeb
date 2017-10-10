@@ -1,4 +1,5 @@
-const axios = require("axios");
+import axios from "axios";
+import Utils from "../Helpers/Utils";
 const Logger = require("../Helpers/Logger");
 
 export function paymentInfoSetInfo(payment, account_id) {
@@ -19,8 +20,10 @@ export function paymentInfoUpdate(account_id, payment_id) {
             .get(`/api/payment/${account_id}/${payment_id}`)
             .then(response => response.data)
             .then(json => {
+                if (Utils.validateJSON(json)) {
+                    dispatch(paymentInfoSetInfo(json, account_id, payment_id));
+                }
                 // update payment info and stop loading state
-                dispatch(paymentInfoSetInfo(json, account_id, payment_id));
                 dispatch(paymentInfoNotLoading());
             })
             .catch(err => {

@@ -19,5 +19,16 @@ export default {
         str += "";
         let f = str.charAt(0).toUpperCase();
         return f + str.substr(1);
+    },
+    validateJSON: input => {
+        if (typeof input === "object") {
+            return true;
+        }
+        try {
+            JSON.parse(input);
+        } catch (ex) {
+            return false;
+        }
+        return true;
     }
 };

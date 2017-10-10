@@ -1,4 +1,5 @@
-const axios = require("axios");
+import axios from "axios";
+import Utils from "../Helpers/Utils";
 const Logger = require("../Helpers/Logger");
 
 import { paymentInfoClear } from "./payment_info";
@@ -25,7 +26,9 @@ export function userLogin(id, type) {
             })
             .then(response => response.data)
             .then(json => {
-                dispatch(userSetInfo(json.user));
+                if (Utils.validateJSON(json)) {
+                    dispatch(userSetInfo(json.user));
+                }
                 dispatch(userNotLoading());
             })
             .catch(err => {

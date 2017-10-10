@@ -1,4 +1,5 @@
-const axios = require("axios");
+import axios from "axios";
+import Utils from "../Helpers/Utils";
 const Logger = require("../Helpers/Logger");
 
 export function usersSetInfo(users) {
@@ -17,7 +18,9 @@ export function usersUpdate() {
             .get(`/api/users`)
             .then(response => response.data)
             .then(json => {
-                dispatch(usersSetInfo(json.users));
+                if (Utils.validateJSON(json)) {
+                    dispatch(usersSetInfo(json.users));
+                }
                 dispatch(usersNotLoading());
                 dispatch(usersInitialCheck());
             })
