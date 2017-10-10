@@ -24,16 +24,16 @@ export default class Dashboard extends React.Component {
 
     render() {
         return (
-            <Grid container spacing={24}>
+            <Grid container spacing={16}>
                 <Helmet>
                     <title>{`BunqWeb - Dashboard`}</title>
                 </Helmet>
 
-                <Grid item xs={10}>
+                <Grid item xs={8} sm={10}>
                     <h1>Welcome {this.props.user.displayName}</h1>
                 </Grid>
 
-                <Grid item xs={2}>
+                <Grid item xs={4} sm={2}>
                     <Button style={styles.btn} onClick={this.props.logoutUser}>
                         Switch User
                     </Button>

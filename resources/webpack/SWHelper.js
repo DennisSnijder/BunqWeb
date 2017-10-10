@@ -26,9 +26,9 @@ const SWHelper = (fileList = false, options = { publicDir: "web" }) => {
             // runtimeCaching which matches patterns and applies the specific handlers
             runtimeCaching: [
                 {
-                    // cache api attachements in production mode
+                    // always cache api attachements
                     urlPattern: /\/api\/attachment\/[.]*/,
-                    handler: DEVELOPMENT ? "networkFirst" : "cacheFirst"
+                    handler:  "cacheFirst"
                 },
                 {
                     // dont cache api requests
@@ -41,7 +41,13 @@ const SWHelper = (fileList = false, options = { publicDir: "web" }) => {
                     handler: "networkFirst"
                 },
                 {
-                    urlPattern: /[.]?(html|js|css|json|png|jpg|svg|gif|jpeg|woff|woff2|ttf|eot)/,
+                    // always cache images/fonts
+                    urlPattern: /[.]?(png|jpg|svg|gif|jpeg|woff|woff2|ttf|eot)/,
+                    handler: "cacheFirst"
+                },
+                {
+                    // don't cache these in dev mode
+                    urlPattern: /[.]?(html|js|css|json)/,
                     handler: DEVELOPMENT ? "networkFirst" : "cacheFirst"
                 }
             ]

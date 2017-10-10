@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import Dialog from "material-ui/Dialog";
 import Snackbar from "material-ui/Snackbar";
+import Grid from "material-ui/Grid";
 import Button from "material-ui/Button";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import createMuiTheme from "material-ui/styles/createMuiTheme";
@@ -77,7 +78,7 @@ class Main extends React.Component {
 
         return (
             <MuiThemeProvider muiTheme={DefaultTheme}>
-                <div>
+                <Grid container spacing={24} justify={"center"}>
                     <Dialog
                         title={this.props.modalTitle}
                         actions={[
@@ -103,11 +104,13 @@ class Main extends React.Component {
                         onRequestClose={this.props.closeSnackbar}
                     />
 
-                    <RouteComponent
-                        user={this.props.user}
-                        childProps={childProps}
-                    />
-                </div>
+                    <Grid item xs={12} md={10} lg={8} xl={6}>
+                        <RouteComponent
+                            user={this.props.user}
+                            childProps={childProps}
+                        />
+                    </Grid>
+                </Grid>
             </MuiThemeProvider>
         );
     }
