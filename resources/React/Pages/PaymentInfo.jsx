@@ -26,11 +26,7 @@ const styles = {
 export default class PaymentInfo extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.state = {
-            amount: 0,
-            description: "",
-            target: ""
-        };
+        this.state = {};
     }
 
     componentDidMount() {
