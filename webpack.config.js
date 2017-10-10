@@ -58,6 +58,8 @@ let config = {
             openAnalyzer: false,
             // default type to open (`stat`, `parsed` or `gzip`)
             defaultSizes: "gzip",
+            // disable logging in console
+            logLevel: "silent",
             // create a server for the watcher or a static file for production enviroments
             analyzerMode: "static",
             // output outside of the public folder

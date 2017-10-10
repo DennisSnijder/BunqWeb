@@ -23,12 +23,13 @@ const SWHelper = (fileList = false, options = { publicDir: "web" }) => {
         {
             staticFileGlobs: staticFiles,
             stripPrefix: options.publicDir,
+            logger: () => {},
             // runtimeCaching which matches patterns and applies the specific handlers
             runtimeCaching: [
                 {
                     // always cache api attachements
                     urlPattern: /\/api\/attachment\/[.]*/,
-                    handler:  "cacheFirst"
+                    handler: "cacheFirst"
                 },
                 {
                     // dont cache api requests
