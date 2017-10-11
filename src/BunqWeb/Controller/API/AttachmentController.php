@@ -2,7 +2,7 @@
 namespace BunqWeb\Controller\API;
 
 use bunq\Context\ApiContext;
-use bunq\Model\Generated\AttachmentPublicContent;
+use bunq\Model\Generated\Endpoint\AttachmentPublicContent;
 use GuzzleHttp\Psr7\Stream;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -2,9 +2,7 @@
 namespace BunqWeb\Repository;
 
 use bunq\Context\ApiContext;
-use bunq\Model\Generated\User;
-use bunq\Model\Generated\UserCompany;
-use bunq\Model\Generated\UserPerson;
+use bunq\Model\Generated\Endpoint\User;
 use BunqWeb\Model\User as DomainUser;
 
 class UserRepository
@@ -25,26 +23,10 @@ class UserRepository
         return $this->hydrateMultipleUsers($userListing->getValue());
     }
 
-    /**
-     * Currently the User::get seems to be broken.
-     * that's why this solution is a bit weird.
-     * https://github.com/bunq/sdk_php/issues/51
-     *
-     * todo: fix this once the issue is resolved.
-     */
-    public function getUserByIdentifier($id, $type)
+    public function getUserByIdentifier($id)
     {
-        $user = new User();
-
-        if($type == DomainUser::TYPE_COMPANY) {
-            $userRequest = UserCompany::get($this->context, $id);
-            $user->setUserCompany($userRequest->getValue());
-        } else {
-            $userRequest = UserPerson::get($this->context, $id);
-            $user->setUserPerson($userRequest->getValue());
-        }
-
-        return $this->hydrateUser($user);
+        $user = User::get($this->context, $id);
+        return $this->hydrateUser($user->getValue());
     }
 
     private function hydrateMultipleUsers(array $users): array

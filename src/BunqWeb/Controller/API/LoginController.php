@@ -36,9 +36,8 @@ class LoginController
     public function handleLoginRequest(Request $request)
     {
         $id = $request->get('id');
-        $type = $request->get('type');
 
-        $user = $this->userRepository->getUserByIdentifier($id, $type);
+        $user = $this->userRepository->getUserByIdentifier($id);
         $this->session->set('user', $user);
 
         return new JsonResponse([
