@@ -4,8 +4,8 @@ namespace BunqWeb\Controller\API;
 
 
 use bunq\Context\ApiContext;
-use bunq\Model\Generated\MonetaryAccountBank;
-use bunq\Model\Generated\Payment;
+use bunq\Model\Generated\Endpoint\MonetaryAccountBank;
+use bunq\Model\Generated\Endpoint\Payment;
 use BunqWeb\Model\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

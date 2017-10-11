@@ -1,8 +1,8 @@
 <?php
 namespace BunqWeb\Model;
 
-use bunq\Model\Generated\UserCompany;
-use bunq\Model\Generated\UserPerson;
+use bunq\Model\Generated\Endpoint\UserCompany;
+use bunq\Model\Generated\Endpoint\UserPerson;
 use JsonSerializable;
 
 class User implements JsonSerializable
