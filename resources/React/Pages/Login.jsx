@@ -1,10 +1,12 @@
 import React from "react";
+import {connect} from "react-redux";
 import Helmet from "react-helmet";
 import Grid from "material-ui/Grid";
 import Button from "material-ui/Button";
 import Avatar from "material-ui/Avatar";
 import Card, { CardHeader, CardContent } from "material-ui/Card";
-import axios from "axios";
+import {userLogin,} from "../Actions/user";
+import {usersUpdate} from "../Actions/users";
 
 const styles = {
     loginButton: {
@@ -16,7 +18,7 @@ const styles = {
     }
 };
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -80,3 +82,21 @@ export default class Login extends React.Component {
         );
     }
 }
+
+
+const mapStateToProps = state => {
+    return {
+        users: state.users.users,
+        user: state.user.user,
+        userLoading: state.user.loading
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loginUser: (id, type) => dispatch(userLogin(id, type)),
+        updateUsers: () => dispatch(usersUpdate())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

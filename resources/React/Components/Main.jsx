@@ -12,12 +12,8 @@ import DefaultThemeConfig from "../Themes/DefaultTheme";
 const DefaultTheme = createMuiTheme(DefaultThemeConfig);
 
 // redux actions
-import { userLogin, userLogout } from "../Actions/user.js";
-import { usersUpdate } from "../Actions/users.js";
-import { paymentsUpdate } from "../Actions/payments.js";
-import { paymentInfoUpdate } from "../Actions/payment_info.js";
-import { accountsUpdate, accountsSelectAccount } from "../Actions/accounts.js";
-import { closeModal, openModal } from "../Actions/modal.js";
+import { userLogin } from "../Actions/user.js";
+import { closeModal } from "../Actions/modal.js";
 import { closeSnackbar, openSnackbar } from "../Actions/snackbar.js";
 
 class Main extends React.Component {
@@ -39,38 +35,7 @@ class Main extends React.Component {
     render() {
         const childProps = {
             // uniqueness to help with triggering route change animations
-            key: this.props.location.pathname,
-
-            user: this.props.user,
-            userLoading: this.props.userLoading,
-            loginUser: this.props.loginUser,
-            logoutUser: this.props.logoutUser,
-
-            users: this.props.users,
-            usersLoading: this.props.usersLoading,
-            updateUsers: this.props.updateUsers,
-
-            paymentsLoading: this.props.paymentsLoading,
-            paymentsAccountId: this.props.paymentsAccountId,
-            payments: this.props.payments,
-            updatePayments: this.props.updatePayments,
-
-            paymentLoading: this.props.paymentLoading,
-            paymentAccountId: this.props.paymentAccountId,
-            paymentId: this.props.paymentId,
-            payment: this.props.payment,
-            updatePayment: this.props.updatePayment,
-
-            accountsLoading: this.props.accountsLoading,
-            accounts: this.props.accounts,
-            updateAccounts: this.props.updateAccounts,
-            selectAccount: this.props.selectAccount,
-            accountsSelectedAccount: this.props.accountsSelectedAccount,
-
-            openModal: this.props.openModal,
-            closeModal: this.props.closeModal,
-            openSnackbar: this.props.openSnackbar,
-            closeSnackbar: this.props.closeSnackbar
+            key: this.props.location.pathname
         };
 
         // get the component from the props
@@ -104,7 +69,7 @@ class Main extends React.Component {
                         onRequestClose={this.props.closeSnackbar}
                     />
 
-                    <Grid item xs={12} md={10} lg={8} xl={6}>
+                    <Grid item xs={12} md={10} lg={8}>
                         <RouteComponent
                             user={this.props.user}
                             childProps={childProps}
@@ -115,65 +80,33 @@ class Main extends React.Component {
         );
     }
 }
-export default withRouter(
-    connect(
-        store => {
-            return {
-                user: store.user.user,
-                userInitialCheck: store.user.initialCheck,
-                userLoading: store.user.loading,
 
-                users: store.users.users,
-                usersInitialCheck: store.users.initialCheck,
-                usersLoading: store.users.loading,
+const mapStateToProps = store => {
+    return {
+        user: store.user.user,
+        userInitialCheck: store.user.initialCheck,
+        userLoading: store.user.loading,
 
-                payments: store.payments.payments,
-                paymentsLoading: store.payments.loading,
-                paymentsAccountId: store.payments.account_id,
+        modalText: store.modal.message,
+        modalTitle: store.modal.title,
+        modalOpen: store.modal.modalOpen,
 
-                payment: store.payment_info.payment,
-                paymentLoading: store.payment_info.loading,
-                paymentAccountId: store.payment_info.account_id,
-                paymentId: store.payment_info.payment_id,
+        snackbarMessage: store.snackbar.message,
+        snackbarDuration: store.snackbar.duration,
+        snackbarOpen: store.snackbar.snackbarOpen
+    };
+};
 
-                accounts: store.accounts.accounts,
-                accountsSelectedAccount: store.accounts.selectedAccount,
-                accountsLoading: store.accounts.loading,
+const mapDispatchToProps = dispatch => {
+    return {
+        closeSnackbar: () => dispatch(closeSnackbar()),
+        openSnackbar: (message, duration = 4000) =>
+            dispatch(openSnackbar(message, duration)),
 
-                modalText: store.modal.message,
-                modalTitle: store.modal.title,
-                modalOpen: store.modal.modalOpen,
+        closeModal: () => dispatch(closeModal()),
 
-                snackbarMessage: store.snackbar.message,
-                snackbarDuration: store.snackbar.duration,
-                snackbarOpen: store.snackbar.snackbarOpen
-            };
-        },
-        (dispatch, props) => {
-            return {
-                closeSnackbar: () => dispatch(closeSnackbar()),
-                openSnackbar: (message, duration = 4000) =>
-                    dispatch(openSnackbar(message, duration)),
+        loginUser: (id, type) => dispatch(userLogin(id, type))
+    };
+};
 
-                closeModal: () => dispatch(closeModal()),
-                openModal: (message, title) =>
-                    dispatch(openModal(message, title)),
-
-                updatePayments: accountId =>
-                    dispatch(paymentsUpdate(accountId)),
-
-                updatePayment: (accountId, paymentId) =>
-                    dispatch(paymentInfoUpdate(accountId, paymentId)),
-
-                updateAccounts: () => dispatch(accountsUpdate()),
-                selectAccount: acountId =>
-                    dispatch(accountsSelectAccount(acountId)),
-
-                updateUsers: () => dispatch(usersUpdate()),
-
-                loginUser: (id, type) => dispatch(userLogin(id, type)),
-                logoutUser: () => dispatch(userLogout())
-            };
-        }
-    )(Main)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
