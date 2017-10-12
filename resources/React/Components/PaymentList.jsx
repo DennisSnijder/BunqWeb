@@ -5,14 +5,27 @@ import Divider from "material-ui/Divider";
 import { LinearProgress } from "material-ui/Progress";
 
 import PaymentListItem from "./PaymentListItem";
-import ClearBtn from "./FilterIcons/ClearFilter";
-import PaymentTypeBtn from "./FilterIcons/PaymentType";
+import ClearBtn from "./FilterComponents/ClearFilter";
+import DisplayDrawerBtn from "./FilterComponents/DisplayDrawer";
 
 class PaymentList extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {};
     }
+
+    paymentFilter = payment => {
+        if (this.props.paymentType === "received") {
+            if (payment.amount.value <= 0) {
+                return false;
+            }
+        } else if (this.props.paymentType === "sent") {
+            if (payment.amount.value >= 0) {
+                return false;
+            }
+        }
+        return true;
+    };
 
     render() {
         let payments = [];
@@ -24,23 +37,7 @@ class PaymentList extends React.Component {
 
         if (this.props.payments !== false) {
             payments = this.props.payments
-                .filter(payment => {
-                    if (this.props.paymentType === false) {
-                        return true;
-                    } else if (
-                        this.props.paymentType === "received" &&
-                        payment.amount.value > 0
-                    ) {
-                        return true;
-                    } else if (
-                        this.props.paymentType === "sent" &&
-                        payment.amount.value < 0
-                    ) {
-                        return true;
-                    }
-
-                    return false;
-                })
+                .filter(this.paymentFilter)
                 .map(payment => <PaymentListItem payment={payment} />);
         }
 
@@ -50,8 +47,7 @@ class PaymentList extends React.Component {
                     Payments - {payments.length}
                     <ListItemSecondaryAction>
                         <ClearBtn />
-                        {/*<DateRangeBtn />*/}
-                        <PaymentTypeBtn />
+                        <DisplayDrawerBtn />
                     </ListItemSecondaryAction>
                 </ListItem>
 
@@ -66,7 +62,7 @@ const mapStateToProps = state => {
     return {
         paymentType: state.payment_filter.type,
         payments: state.payments.payments,
-        paymentsLoading: state.payments.loading,
+        paymentsLoading: state.payments.loading
     };
 };
 

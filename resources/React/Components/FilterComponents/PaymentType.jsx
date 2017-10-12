@@ -3,20 +3,19 @@ import { connect } from "react-redux";
 import IconButton from "material-ui/IconButton";
 import ArrowUpwardIcon from "material-ui-icons/ArrowUpward";
 import ArrowDownwardIcon from "material-ui-icons/ArrowDownward";
-import ListIcon from "material-ui-icons/List";
+import FilterListIcon from "material-ui-icons/FilterList";
 
 import { rotatePaymentFilterType } from "../../Actions/payment_filter";
 
 class PaymentType extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.state = {
-        };
+        this.state = {};
     }
 
     render() {
         let filterColor = "default";
-        let filterIcon = <ListIcon />;
+        let filterIcon = <FilterListIcon />;
         switch (this.props.paymentType) {
             case "received":
                 filterColor = "primary";

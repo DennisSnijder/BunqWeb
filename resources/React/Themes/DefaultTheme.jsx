@@ -2,7 +2,7 @@ export default {
     palette: {
         common: {
             black: "#000",
-            white: "#fff",
+            white: "#fff111",
             transparent: "rgba(0, 0, 0, 0)",
             fullBlack: "rgba(0, 0, 0, 1)",
             darkBlack: "rgba(0, 0, 0, 0.87)",
@@ -11,7 +11,9 @@ export default {
             faintBlack: "rgba(0, 0, 0, 0.12)",
             fullWhite: "rgba(255, 255, 255, 1)",
             darkWhite: "rgba(255, 255, 255, 0.87)",
-            lightWhite: "rgba(255, 255, 255, 0.54)"
+            lightWhite: "rgba(255, 255, 255, 0.54)",
+            receivedPayment: "#008000",
+            sentPayment: "#ff0000",
         },
         type: "light",
         primary: {

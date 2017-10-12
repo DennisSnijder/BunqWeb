@@ -1,7 +1,5 @@
 export const defaultState = {
-    type: false,
-    // defines whether a filter is set
-    filterClear: true
+    type: "default",
 };
 
 export default function reducer(state = defaultState, action) {
@@ -10,8 +8,7 @@ export default function reducer(state = defaultState, action) {
         case "PAYMENT_FILTER_SET_TYPE":
             return {
                 ...state,
-                type: action.payload.type,
-                filterClear: false
+                type: action.payload.type
             };
 
         // follow the default rotation through the 3 types
@@ -22,13 +19,12 @@ export default function reducer(state = defaultState, action) {
                     nextType = "sent";
                     break;
                 case "sent":
-                    nextType = false;
+                    nextType = "default";
                     break;
             }
             return {
                 ...state,
-                type: nextType,
-                filterClear: false
+                type: nextType
             };
 
         case "PAYMENT_FILTER_CLEAR":

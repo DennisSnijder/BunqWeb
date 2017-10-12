@@ -12,7 +12,7 @@ class ClearFilter extends React.Component {
     }
 
     render() {
-        if (this.props.paymentFilterClear) {
+        if (this.props.type === "default") {
             return null;
         }
         return (
@@ -25,7 +25,7 @@ class ClearFilter extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        paymentFilterClear: state.payment_filter.filterClear
+        type: state.payment_filter.type,
     };
 };
 

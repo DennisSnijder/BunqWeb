@@ -1,4 +1,5 @@
 import React from "react";
+import { withTheme } from "material-ui/styles";
 import {
     ListItem,
     ListItemText,
@@ -23,7 +24,7 @@ class PaymentListItem extends React.Component {
     }
 
     render() {
-        const payment = this.props.payment;
+        const { payment, theme } = this.props;
 
         let icon_uri =
             "https://static.useresponse.com/public/bunq/avatars/default-avatar.svg";
@@ -35,7 +36,10 @@ class PaymentListItem extends React.Component {
         const displayName = payment.counterparty_alias.display_name;
         const paymentDate = new Date(payment.created).toLocaleString();
         const paymentAmount = payment.amount.value;
-        const paymentColor = paymentAmount < 0 ? "red" : "green";
+        const paymentColor =
+            paymentAmount < 0
+                ? theme.palette.common.sentPayment
+                : theme.palette.common.receivedPayment;
 
         return [
             <ListItem button to={`/payment/${payment.id}`} component={NavLink}>
@@ -59,4 +63,4 @@ class PaymentListItem extends React.Component {
     }
 }
 
-export default PaymentListItem;
+export default withTheme(PaymentListItem);
