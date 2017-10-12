@@ -42,7 +42,7 @@ class Main extends React.Component {
         const RouteComponent = this.props.routesComponent;
 
         return (
-            <MuiThemeProvider muiTheme={DefaultTheme}>
+            <MuiThemeProvider theme={DefaultTheme}>
                 <Grid container spacing={24} justify={"center"}>
                     <Dialog
                         title={this.props.modalTitle}
