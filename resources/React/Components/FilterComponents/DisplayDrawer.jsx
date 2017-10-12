@@ -13,6 +13,7 @@ import ClearIcon from "material-ui-icons/Clear";
 import { Divider } from "material-ui";
 import { connect } from "react-redux";
 import {
+    clearPaymentFilterType,
     rotatePaymentFilterType,
     setPaymentFilterType
 } from "../../Actions/payment_filter";
@@ -44,7 +45,7 @@ class DisplayDrawer extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            open: true
+            open: false
         };
     }
 
@@ -98,7 +99,7 @@ class DisplayDrawer extends React.Component {
                 </ListItem>
 
                 <Divider />
-                <ListItem button>
+                <ListItem button onClick={this.props.clearPaymentFilterType}>
                     <ListItemIcon>
                         <ClearIcon />
                     </ListItemIcon>
@@ -130,6 +131,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        clearPaymentFilterType: () => dispatch(clearPaymentFilterType()),
         rotatePaymentFilterType: () => dispatch(rotatePaymentFilterType()),
         setPaymentFilterType: type => dispatch(setPaymentFilterType(type))
     };
