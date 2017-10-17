@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import Helmet from "react-helmet";
 import Paper from "material-ui/Paper";
 import Button from "material-ui/Button";
@@ -6,13 +7,16 @@ import Grid from "material-ui/Grid";
 import PaymentList from "../Components/PaymentList";
 import AccountList from "../Components/AccountList";
 
+import { userLogin, userLogout } from "../Actions/user";
+import { accountsUpdate } from "../Actions/accounts";
+
 const styles = {
     btn: {
         width: "100%"
     }
 };
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {};
@@ -41,28 +45,32 @@ export default class Dashboard extends React.Component {
 
                 <Grid item xs={12} md={4}>
                     <Paper>
-                        <AccountList
-                            accounts={this.props.accounts}
-                            selectAccount={this.props.selectAccount}
-                            accountsSelectedAccount={this.props.accountsSelectedAccount}
-                            accountsLoading={this.props.accountsLoading}
-                            updatePayments={this.props.updatePayments}
-                            paymentsLoading={this.props.paymentsLoading}
-                            paymentsAccountId={this.props.paymentsAccountId}
-                        />
+                        <AccountList />
                     </Paper>
                 </Grid>
 
                 <Grid item xs={12} md={8}>
                     <Paper>
-                        <PaymentList
-                            payments={this.props.payments}
-                            paymentsLoading={this.props.paymentsLoading}
-                            updatePayments={this.props.updatePayments}
-                        />
+                        <PaymentList />
                     </Paper>
                 </Grid>
             </Grid>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user.user
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loginUser: (id, type) => dispatch(userLogin(id, type)),
+        logoutUser: () => dispatch(userLogout()),
+        updateAccounts: () => dispatch(accountsUpdate())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

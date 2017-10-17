@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import Helmet from "react-helmet";
 import Redirect from "react-router-dom/Redirect";
 import Grid from "material-ui/Grid";
@@ -11,7 +12,12 @@ import ArrowForwardIcon from "material-ui-icons/ArrowForward";
 import ArrowUpIcon from "material-ui-icons/ArrowUpward";
 import ArrowDownIcon from "material-ui-icons/ArrowDownward";
 import CircularProgress from "material-ui/Progress/CircularProgress";
+
 import NavLink from "../Components/Sub/NavLink";
+
+import { accountsUpdate } from "../Actions/accounts";
+import { userLogin } from "../Actions/user";
+import { paymentInfoUpdate } from "../Actions/payment_info";
 
 const styles = {
     btn: {},
@@ -23,7 +29,7 @@ const styles = {
     }
 };
 
-export default class PaymentInfo extends React.Component {
+class PaymentInfo extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {};
@@ -180,3 +186,23 @@ export default class PaymentInfo extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user.user,
+        payment: state.payment_info.payment,
+        paymentLoading: state.payment_info.loading,
+        accountsSelectedAccount: state.accounts.selectedAccount
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loginUser: (id, type) => dispatch(userLogin(id, type)),
+        updateAccounts: () => dispatch(accountsUpdate()),
+        updatePayment: (account_id, payment_id) =>
+            dispatch(paymentInfoUpdate(account_id, payment_id))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentInfo);
