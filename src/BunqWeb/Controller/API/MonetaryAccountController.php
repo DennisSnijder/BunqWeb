@@ -35,7 +35,11 @@ class MonetaryAccountController
     {
         /** @var User $user */
         $user = $this->session->get('user');
-        $payments = Payment::listing($this->apiContext, $user->getId(), $monetaryAccountId);
+        $payments = Payment::listing($this->apiContext, $user->getId(), $monetaryAccountId, [
+            'count' => 200,
+            'older_id' => 31890623
+        ]);
+
 
         return new JsonResponse($payments->getValue());
     }

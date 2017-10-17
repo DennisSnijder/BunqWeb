@@ -1,3 +1,6 @@
+# This project has been discontinued
+Please refer to https://github.com/BunqCommunity/BunqDesktop
+
 # Bunq Web #
 An open source, self hosted dashboard for Bunq.
 
